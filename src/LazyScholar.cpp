@@ -24,6 +24,10 @@ LazyScholar::LazyScholar(bb::cascades::Application *app) :
 	// via Q_INVOKABLE will be found with the property and the name of the function.
 	qml->setContextProperty("learn", this);
 
+
+
+
+
 	// create root object for the UI
 	AbstractPane *root = qml->createRootObject<AbstractPane>();
 	// set created root object as a scene

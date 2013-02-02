@@ -62,6 +62,10 @@ Page {
                     
                     newPage = paintDefn.createObject();
                     learn.initDrawPage();
+                }
+                
+                else if (name == "Quiz") {
+                    newPage = quizDefn.createObject();
                 }else{
                      newPage = emptyDefn.createObject();
                      newPage.label =  chosenItem.title + " Coming Soon"

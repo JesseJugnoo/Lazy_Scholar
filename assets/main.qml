@@ -77,6 +77,10 @@ NavigationPane {
             id: paintDefn
             source: "Paint.qml"
         },
+        ComponentDefinition{
+            id: quizDefn
+            source: "Quiz.qml"
+        },
         ComponentDefinition{ //component for an empty page
             id: emptyDefn
             source: "Empty.qml"

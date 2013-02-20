@@ -43,7 +43,7 @@ NavigationPane {
                 horizontalAlignment: HorizontalAlignment.Center
                 onClicked: {
                     console.log("started game");
-                    var newPage = hub; // hubDefn.createObject();
+                    var newPage = hubDefn.createObject();
                     titleNav.push(newPage);
                 }
             } //end button
@@ -53,36 +53,23 @@ NavigationPane {
                 horizontalAlignment: HorizontalAlignment.Center
                 onClicked: {
                     console.log("Get to menu");
-                    //var newPage = hubDefn.createObject();
-                    titleNav.push(menu);
+                    var newPage = emptyDefn.createObject();
+                    newPage.label = "Menu Coming Soon"
+                    titleNav.push(newPage);
                 }
             } //end button
         }
     } //end page
     attachedObjects: [
-        // Create the ComponentDefinition that represents the custom
-        // component in myPage.qml
-        /*
-         * Hub {
-         * id: hubDefn
-         * }
-         * ,
-         */
-        Page {
-            id: menu
-            content: Container {
-                Label {
-                    text: "Setting coming soon"
-                }
-            }
+        //Create the ComponentDefinition that represents the custom
+        // component in Hub.qml
+        ComponentDefinition {
+            id: hubDefn
+            source: "Hub.qml"
         },
-        Page {
-            id: hub
-            content: Container {
-                Label {
-                    text: "Hub coming soon"
-                }
-            }
+        ComponentDefinition{
+            id: emptyDefn
+            source: "Empty.qml"
         }
     ] //end attachedObject
 }//end navigation pane

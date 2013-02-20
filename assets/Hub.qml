@@ -8,7 +8,9 @@ NavigationPane {
             ListView {
                 id: hubList
                 objectName: "hubList"
+                
                 layout: GridListLayout {
+                    columnCount: 2
                 }
             
                 listItemComponents: [
@@ -73,7 +75,7 @@ NavigationPane {
                 ]
                 onTriggered: {
                     // When an item is selected we push the recipe Page in the chosenItem file attribute.
-                    // var chosenItem = dataModel.data(indexPath);
+                     var chosenItem = dataModel.data(indexPath);
 
                     // The _contentView property can be resolved in by the ContentPage since it will
                     // share the same context as the main file.
@@ -81,7 +83,16 @@ NavigationPane {
                     
                     // Push the Content Page on top to drill down and show details about the stamp.
                     // nav.deprecatedPushQmlByString("ContentPage.qml");
+                    nav.push(empty);
                 }
+                attachedObjects: [
+                    Page {
+                        id: empty
+                        Container {
+                            Label{ text:"Coming Soon" }
+                        }
+                    }
+                ]
             }
         }
     }

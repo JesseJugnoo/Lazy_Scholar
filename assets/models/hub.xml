@@ -1,0 +1,8 @@
+<root>
+    <header title="Learn Hub">
+        <item  title="Draw" picture="images/write_chinese.png" infoText="Practice writing the characters with hand tracing application."/>
+        <item  title="Quiz" picture="images/quiz.png" infoText="Test your knowledge."/>
+        <item  title="Progress Report" picture="images/report-card.jpg" infoText="See the progress you made so far."/>
+        <item  title="Setting" picture="images/settings_icon.png" infoText="Change the Settings."/>
+     </header>    
+</root>

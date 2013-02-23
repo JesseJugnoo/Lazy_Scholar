@@ -14,7 +14,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.1839045355" name="Device-Debug" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.1839045355" name="Device-Debug" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.1839045355.43475761" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.1265543274" name="com.qnx.qcc.toolChain" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.949573872" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -22,15 +22,48 @@
 							<option id="com.qnx.qcc.option.compiler.1381069941" name="Compiler:" superClass="com.qnx.qcc.option.compiler"/>
 							<option id="com.qnx.qcc.option.runtime.1574945241" name="Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.801610355" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder autoBuildTarget="Device-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.1839045355.659871300" incrementalBuildTarget="Device-Debug" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
+							<builder autoBuildTarget="Device-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.1839045355.659871300" incrementalBuildTarget="Device-Debug" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
 							<tool id="com.qnx.qcc.tool.compiler.958910899" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.953415909" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.953415909" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.366311149" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtOpenGL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtTest"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/img"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtDeclarative"/>
+									<listOptionValue builtIn="false" value="&quot;C:\bbndk\target_10_0_9_1673\qnx6\usr\include\qt4&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\bbndk\target_10_0_9_1673\qnx6\usr\include\qt4\QtCore&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\bbndk\target_10_0_9_1673\qnx6\usr\include\cpp\embedded&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\bbndk\target_10_0_9_1673\target-override\usr\include&quot;"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1393255241" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.1299750973" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.12795808" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
-							<tool id="com.qnx.qcc.tool.linker.1182922129" name="QCC Linker" superClass="com.qnx.qcc.tool.linker"/>
+							<tool id="com.qnx.qcc.tool.linker.1182922129" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
+								<option id="com.qnx.qcc.option.linker.libraries.506454818" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
+									<listOptionValue builtIn="false" value="glview"/>
+									<listOptionValue builtIn="false" value="EGL"/>
+									<listOptionValue builtIn="false" value="GLESv1_CM"/>
+									<listOptionValue builtIn="false" value="GLESv2"/>
+									<listOptionValue builtIn="false" value="QtOpenGL"/>
+									<listOptionValue builtIn="false" value="screen"/>
+									<listOptionValue builtIn="false" value="grskia"/>
+									<listOptionValue builtIn="false" value="bbcascades"/>
+									<listOptionValue builtIn="false" value="fonts"/>
+									<listOptionValue builtIn="false" value="harfbuzz"/>
+									<listOptionValue builtIn="false" value="QtDeclarative"/>
+									<listOptionValue builtIn="false" value="QtGui"/>
+									<listOptionValue builtIn="false" value="WTLE"/>
+									<listOptionValue builtIn="false" value="iType"/>
+									<listOptionValue builtIn="false" value="QtCore"/>
+									<listOptionValue builtIn="false" value="QtSensors"/>
+									<listOptionValue builtIn="false" value="QtSvg"/>
+									<listOptionValue builtIn="false" value="img"/>
+									<listOptionValue builtIn="false" value="QtTest"/>
+								</option>
+							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1719206199" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
@@ -52,7 +85,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.95361698" name="Device-Release" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.95361698" name="Device-Release" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.95361698.84308821" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.1135099195" name="com.qnx.qcc.toolChain" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.548212588" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -60,15 +93,47 @@
 							<option id="com.qnx.qcc.option.compiler.448042506" name="Compiler:" superClass="com.qnx.qcc.option.compiler"/>
 							<option id="com.qnx.qcc.option.runtime.1073114998" name="Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.1960657196" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder autoBuildTarget="Device-Release" enableAutoBuild="true" id="com.qnx.qcc.toolChain.95361698.1149998882" incrementalBuildTarget="Device-Release" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
+							<builder autoBuildTarget="Device-Release" enableAutoBuild="true" id="com.qnx.qcc.toolChain.95361698.1149998882" incrementalBuildTarget="Device-Release" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
 							<tool id="com.qnx.qcc.tool.compiler.1363425934" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.73704369" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.73704369" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.1815452763" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtOpenGL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/img"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtGui"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtDeclarative"/>
+									<listOptionValue builtIn="false" value="&quot;C:\bbndk\target_10_0_9_1673\qnx6\usr\include\qt4&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\bbndk\target_10_0_9_1673\qnx6\usr\include\qt4\QtCore&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\bbndk\target_10_0_9_1673\qnx6\usr\include\cpp\embedded&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\bbndk\target_10_0_9_1673\target-override\usr\include&quot;"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1066406591" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.522164957" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.208639224" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
-							<tool id="com.qnx.qcc.tool.linker.1214180434" name="QCC Linker" superClass="com.qnx.qcc.tool.linker"/>
+							<tool id="com.qnx.qcc.tool.linker.1214180434" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
+								<option id="com.qnx.qcc.option.linker.libraries.971193518" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
+									<listOptionValue builtIn="false" value="glview"/>
+									<listOptionValue builtIn="false" value="EGL"/>
+									<listOptionValue builtIn="false" value="GLESv1_CM"/>
+									<listOptionValue builtIn="false" value="GLESv2"/>
+									<listOptionValue builtIn="false" value="QtOpenGL"/>
+									<listOptionValue builtIn="false" value="screen"/>
+									<listOptionValue builtIn="false" value="grskia"/>
+									<listOptionValue builtIn="false" value="bbcascades"/>
+									<listOptionValue builtIn="false" value="fonts"/>
+									<listOptionValue builtIn="false" value="harfbuzz"/>
+									<listOptionValue builtIn="false" value="QtDeclarative"/>
+									<listOptionValue builtIn="false" value="QtGui"/>
+									<listOptionValue builtIn="false" value="WTLE"/>
+									<listOptionValue builtIn="false" value="iType"/>
+									<listOptionValue builtIn="false" value="QtCore"/>
+									<listOptionValue builtIn="false" value="QtSensors"/>
+									<listOptionValue builtIn="false" value="img"/>
+									<listOptionValue builtIn="false" value="QtTest"/>
+								</option>
+							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.724561917" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
@@ -90,7 +155,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.2038144249" name="Device-Profile" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.2038144249" name="Device-Profile" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.2038144249.1012776287" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.959037035" name="com.qnx.qcc.toolChain" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.1601234874" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -98,15 +163,58 @@
 							<option id="com.qnx.qcc.option.compiler.1312646414" name="Compiler:" superClass="com.qnx.qcc.option.compiler"/>
 							<option id="com.qnx.qcc.option.runtime.1624139240" name="Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.1371832154" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder autoBuildTarget="Device-Profile" enableAutoBuild="true" id="com.qnx.qcc.toolChain.2038144249.382780919" incrementalBuildTarget="Device-Profile" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
+							<builder autoBuildTarget="Device-Profile" enableAutoBuild="true" id="com.qnx.qcc.toolChain.2038144249.382780919" incrementalBuildTarget="Device-Profile" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
 							<tool id="com.qnx.qcc.tool.compiler.307601799" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.1417051314" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.1417051314" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.2071988390" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtOpenGL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtTest"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/img"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtGui"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtDeclarative"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtSvg"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/QtNfcShare"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtScriptTools"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtScript"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/scoreloop"/>
+									<listOptionValue builtIn="false" value="&quot;C:\bbndk\target_10_0_9_1673\qnx6\usr\include\qt4&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\bbndk\target_10_0_9_1673\qnx6\usr\include\qt4\QtCore&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\bbndk\target_10_0_9_1673\qnx6\usr\include\cpp\embedded&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\bbndk\target_10_0_9_1673\target-override\usr\include&quot;"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1402145105" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.1968768258" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
 								<inputType id="com.qnx.qcc.inputType.assembler.1661694326" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
-							<tool id="com.qnx.qcc.tool.linker.85837861" name="QCC Linker" superClass="com.qnx.qcc.tool.linker"/>
+							<tool id="com.qnx.qcc.tool.linker.85837861" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
+								<option id="com.qnx.qcc.option.linker.libraries.1516694328" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
+									<listOptionValue builtIn="false" value="glview"/>
+									<listOptionValue builtIn="false" value="EGL"/>
+									<listOptionValue builtIn="false" value="GLESv1_CM"/>
+									<listOptionValue builtIn="false" value="GLESv2"/>
+									<listOptionValue builtIn="false" value="QtOpenGL"/>
+									<listOptionValue builtIn="false" value="screen"/>
+									<listOptionValue builtIn="false" value="grskia"/>
+									<listOptionValue builtIn="false" value="scoreloopcore"/>
+									<listOptionValue builtIn="false" value="bbcascades"/>
+									<listOptionValue builtIn="false" value="fonts"/>
+									<listOptionValue builtIn="false" value="harfbuzz"/>
+									<listOptionValue builtIn="false" value="QtDeclarative"/>
+									<listOptionValue builtIn="false" value="QtGui"/>
+									<listOptionValue builtIn="false" value="WTLE"/>
+									<listOptionValue builtIn="false" value="iType"/>
+									<listOptionValue builtIn="false" value="QtCore"/>
+									<listOptionValue builtIn="false" value="QtScript"/>
+									<listOptionValue builtIn="false" value="QtScriptTools"/>
+									<listOptionValue builtIn="false" value="QtSensors"/>
+									<listOptionValue builtIn="false" value="QtNfcShare"/>
+									<listOptionValue builtIn="false" value="QtSvg"/>
+									<listOptionValue builtIn="false" value="img"/>
+									<listOptionValue builtIn="false" value="QtTest"/>
+								</option>
+							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1663330985" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
@@ -128,7 +236,7 @@
 				</extensions>
 			</storageModule>
 			<storageModule moduleId="cdtBuildSystem" version="4.0.0">
-				<configuration artifactName="${ProjName}" buildProperties="" id="com.qnx.qcc.toolChain.2020346951" name="Simulator-Debug" parent="org.eclipse.cdt.build.core.emptycfg">
+				<configuration artifactName="${ProjName}" buildProperties="" description="" id="com.qnx.qcc.toolChain.2020346951" name="Simulator-Debug" parent="org.eclipse.cdt.build.core.emptycfg">
 					<folderInfo id="com.qnx.qcc.toolChain.2020346951.1688984677" name="/" resourcePath="">
 						<toolChain id="com.qnx.qcc.toolChain.1007931212" name="com.qnx.qcc.toolChain" superClass="com.qnx.qcc.toolChain">
 							<option id="com.qnx.qcc.option.os.95740420" name="Target OS:" superClass="com.qnx.qcc.option.os"/>
@@ -136,15 +244,57 @@
 							<option id="com.qnx.qcc.option.compiler.328428628" name="Compiler:" superClass="com.qnx.qcc.option.compiler"/>
 							<option id="com.qnx.qcc.option.runtime.2124823514" name="Runtime:" superClass="com.qnx.qcc.option.runtime"/>
 							<targetPlatform archList="all" binaryParser="com.qnx.tools.ide.qde.core.QDEBynaryParser" id="com.qnx.qcc.targetPlatform.1976856899" osList="all" superClass="com.qnx.qcc.targetPlatform"/>
-							<builder autoBuildTarget="Simulator-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.2020346951.1589785439" incrementalBuildTarget="Simulator-Debug" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
+							<builder autoBuildTarget="Simulator-Debug" buildPath="${workspace_loc:/Lazy_Scholar/Simulator-Debug}" enableAutoBuild="true" id="com.qnx.qcc.toolChain.2020346951.1589785439" incrementalBuildTarget="Simulator-Debug" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
 							<tool id="com.qnx.qcc.tool.compiler.1903209378" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
-								<option id="com.qnx.qcc.option.compiler.optlevel.1747282807" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.optlevel.1747282807" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.509294086" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtOpenGL"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtTest"/>
+									<listOptionValue builtIn="false" value="&quot;${QNX_TARGET}/usr/include/qt4/QtCore&quot;"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtGui"/>
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtDeclarative"/>
+									<listOptionValue builtIn="false" value="&quot;${QNX_TARGET}/../target-override/usr/include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${QNX_TARGET}/usr/include/qt4&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${QNX_TARGET}/usr/include/cpp&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${QNX_TARGET}/usr/include/cpp/c&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${QNX_TARGET}/usr/include/cpp/embedded&quot;"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.701225916" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
 							<tool id="com.qnx.qcc.tool.assembler.1502862820" name="QCC Assembler" superClass="com.qnx.qcc.tool.assembler">
+								<option id="com.qnx.qcc.option.assembler.includePath.520928142" name="Include Directories (-I)" superClass="com.qnx.qcc.option.assembler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;C:\bbndk\target_10_0_9_1673\qnx6\usr\include\qt4&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\bbndk\target_10_0_9_1673\qnx6\usr\include\qt4\QtCore&quot;"/>
+								</option>
 								<inputType id="com.qnx.qcc.inputType.assembler.694970995" superClass="com.qnx.qcc.inputType.assembler"/>
 							</tool>
-							<tool id="com.qnx.qcc.tool.linker.685866240" name="QCC Linker" superClass="com.qnx.qcc.tool.linker"/>
+							<tool id="com.qnx.qcc.tool.linker.685866240" name="QCC Linker" superClass="com.qnx.qcc.tool.linker">
+								<option id="com.qnx.qcc.option.linker.libraries.320296883" name="Libraries (-l)" superClass="com.qnx.qcc.option.linker.libraries" valueType="libs">
+									<listOptionValue builtIn="false" value="glview"/>
+									<listOptionValue builtIn="false" value="EGL"/>
+									<listOptionValue builtIn="false" value="GLESv1_CM"/>
+									<listOptionValue builtIn="false" value="GLESv2"/>
+									<listOptionValue builtIn="false" value="QtOpenGL"/>
+									<listOptionValue builtIn="false" value="screen"/>
+									<listOptionValue builtIn="false" value="grskia"/>
+									<listOptionValue builtIn="false" value="scoreloopcore"/>
+									<listOptionValue builtIn="false" value="bbcascades"/>
+									<listOptionValue builtIn="false" value="fonts"/>
+									<listOptionValue builtIn="false" value="harfbuzz"/>
+									<listOptionValue builtIn="false" value="QtDeclarative"/>
+									<listOptionValue builtIn="false" value="QtGui"/>
+									<listOptionValue builtIn="false" value="WTLE"/>
+									<listOptionValue builtIn="false" value="iType"/>
+									<listOptionValue builtIn="false" value="QtCore"/>
+									<listOptionValue builtIn="false" value="QtScript"/>
+									<listOptionValue builtIn="false" value="QtScriptTools"/>
+									<listOptionValue builtIn="false" value="QtSensors"/>
+									<listOptionValue builtIn="false" value="QtNfcShare"/>
+									<listOptionValue builtIn="false" value="QtSvg"/>
+									<listOptionValue builtIn="false" value="img"/>
+									<listOptionValue builtIn="false" value="QtTest"/>
+								</option>
+							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1790941002" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
 						</toolChain>
 					</folderInfo>
@@ -174,4 +324,8 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.qnx.tools.ide.qde.managedbuilder.core.qccScannerInfo"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
+	<storageModule moduleId="refreshScope" versionNumber="1">
+		<resource resourceType="PROJECT" workspacePath="/Lazy_Scholar"/>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>

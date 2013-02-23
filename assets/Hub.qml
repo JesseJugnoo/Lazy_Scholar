@@ -56,8 +56,14 @@ Page {
                 //When an item is selected we push the recipe Page in the chosenItem file attribute.
                 var chosenItem = dataModel.data(indexPath);
                 // console.log(chosenItem);
-                var newPage = emptyDefn.createObject();
-                newPage.label =  chosenItem.title + " Coming Soon"
+                var name = chosenItem.title;
+                var newPage = null;
+                if (name == "Draw"){
+                    newPage = paintDefn.createObject();
+                }else{
+                     newPage = emptyDefn.createObject();
+                     newPage.label =  chosenItem.title + " Coming Soon"
+                }
                 titleNav.push(newPage);
             }
         }

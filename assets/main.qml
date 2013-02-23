@@ -62,12 +62,16 @@ NavigationPane {
     } //end page
     attachedObjects: [
         //Create the ComponentDefinition that represents the custom
-        // component in Hub.qml
-        ComponentDefinition {
+        // component
+        ComponentDefinition { //component for the hub
             id: hubDefn
             source: "Hub.qml"
         },
         ComponentDefinition{
+            id: paintDefn
+            source: "Paint.qml"
+        },
+        ComponentDefinition{ //component for an empty page
             id: emptyDefn
             source: "Empty.qml"
         }

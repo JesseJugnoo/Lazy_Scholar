@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'LazyScholar.hpp'
 **
-** Created: Thu Feb 21 22:55:59 2013
+** Created: Sat Feb 23 13:27:16 2013
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.4)
 **
 ** WARNING! All changes made in this file will be lost!

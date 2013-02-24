@@ -59,7 +59,9 @@ Page {
                 var name = chosenItem.title;
                 var newPage = null;
                 if (name == "Draw"){
+                    
                     newPage = paintDefn.createObject();
+                    learn.resetImage();
                 }else{
                      newPage = emptyDefn.createObject();
                      newPage.label =  chosenItem.title + " Coming Soon"

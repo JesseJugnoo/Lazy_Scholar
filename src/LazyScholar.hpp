@@ -33,6 +33,11 @@ public:
 	virtual ~LazyScholar() {
 	}
 
+	//Language component
+	Q_INVOKABLE
+	void setLanguage(QString language);
+
+
 	//The drawing component
 	Q_INVOKABLE
 	//The cascade part calls this function to draw the lines made from the hand tracing
@@ -44,11 +49,27 @@ public:
 	Q_INVOKABLE
 	void setEndPoint(float x, float y);
 
+	Q_INVOKABLE
+	void resetImage();
+
+	Q_INVOKABLE
+	void updateStroke();
+
+
+	Q_INVOKABLE
+	int getWidth();
+
+	int getHeight();
+
 	//static function for printing debug statements
 	static void printMessage(const char* msg){
         fprintf(stdout, "%s\n", msg);
         fflush(stdout);
 	}
+	static void printMessage(int num){
+	        fprintf(stdout, "%d\n", num);
+	        fflush(stdout);
+		}
 
 
 Q_SIGNALS:
@@ -65,13 +86,9 @@ private:
 
 	bb::cascades::Image image() const;
 
-	// A helper method that is called whenever an input parameter has changed
-	void updateImage();
-
-	// A helper method to calculate the size of a single replicant image
-	QSize desiredReplicantSize() const;
 
 private:
+	QString m_language;
 	QString m_object;
 
 	//parts of the drawing component
@@ -79,6 +96,8 @@ private:
 	QImage q_image;
 	QPoint lastPoint;
 	QPoint endPoint;
+	int strokes;
+	const int maxStrokes;
 
 };
 

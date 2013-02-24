@@ -6,11 +6,11 @@ Page {
         dataModel: dataModel
         listItemComponents: [
           ListItemComponent {
-            type: "header"
+            type: "item"
             StandardListItem {
-               title:ListItemData.id + ' ' + ListItemData.guess
-              // imageSource: "asset:///" + ListItemData.image
-               //description: ListItemData.title
+                title: ListItemData.ID + " " + ListItemData.Word + " " + ListItemData.Correct
+                
+                
             }
           }
         ]
@@ -24,7 +24,7 @@ Page {
         DataSource {
           id: dataSource
           source: "test"
-          query: "select guess from Random order by id"
+          query: "select * from Words order by ID DESC"
           onDataLoaded: {
             dataModel.insertList(data);
          }

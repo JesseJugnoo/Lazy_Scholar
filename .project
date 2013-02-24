@@ -18,7 +18,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.autoBuildTarget</key>
-					<value>Simulator-Debug</value>
+					<value>Device-Debug</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildArguments</key>
@@ -27,10 +27,6 @@
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.buildCommand</key>
 					<value>make</value>
-				</dictionary>
-				<dictionary>
-					<key>org.eclipse.cdt.make.core.buildLocation</key>
-					<value>${workspace_loc:/Lazy_Scholar/Simulator-Debug}</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.cleanBuildTarget</key>
@@ -54,7 +50,7 @@
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.fullBuildTarget</key>
-					<value>Simulator-Debug</value>
+					<value>Device-Debug</value>
 				</dictionary>
 				<dictionary>
 					<key>org.eclipse.cdt.make.core.stopOnError</key>

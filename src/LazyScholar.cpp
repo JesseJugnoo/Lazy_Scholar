@@ -8,13 +8,14 @@
 #include <bb/cascades/Image>
 #include <bb/ImageData>
 using namespace bb::cascades;
+using namespace bb::data;
 
 namespace {
 QSize workingImageSize(700, 700);
 }
 
 LazyScholar::LazyScholar(bb::cascades::Application *app) :
-		QObject(app),  maxStrokes(4) {
+		QObject(app){
 	// create scene document from main.qml asset
 	// set parent to created document to ensure it exists for the whole application lifetime
 	QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
@@ -27,27 +28,48 @@ LazyScholar::LazyScholar(bb::cascades::Application *app) :
 	AbstractPane *root = qml->createRootObject<AbstractPane>();
 	// set created root object as a scene
 	app->setScene(root);
-	strokes = 0;
+	strokes = 1;
+
+	{
+	        //-- load JSON data from file to QVariant
+
+		JsonDataAccess jda;
+	        lst = jda.load("app/native/assets/models/chinese_data.json").toList();
+	        if (jda.hasError()) {
+	            DataAccessError error = jda.error();
+	            qDebug() << "JSON loading error: " << error.errorType() << ": " << error.errorMessage();
+	        }
+	        else {
+	            qDebug() << "JSON data loaded OK!";
+
+	            GroupDataModel *m = new GroupDataModel(this);
+	            m->setParent(this);
+	            //-- insert the JSON data to model
+	            m->insertList(lst);
+	            //-- make the model flat
+	            m->setGrouping(ItemGrouping::None);
+	            		/*;
+	            //-- find cascades component of type ListView with an objectName property set to the value 'listView'
+	            ListView *list_view = root->findChild<ListView*>("listView");
+	            //-- assign data model object (m) to its GUI representation object (list_view)
+	            if(list_view) list_view->setDataModel(m);
+//				*/
+	        }
+
+	    }
+
 
 }
-
-//! [1]
-void LazyScholar::setObject(const QString &object) {
-	if (m_object == object)
-		return;
-
-	m_object = object;
-	emit objectChanged();
-
-}
-//! [1]
-
-QString LazyScholar::object() const {
-	return m_object;
+QString LazyScholar::translation() const{
+	return m_translate;
 }
 
 bb::cascades::Image LazyScholar::image() const {
 	return m_image;
+}
+
+bb::cascades::Image LazyScholar::textImage() const {
+	return m_text_image;
 }
 
 int LazyScholar::getWidth(){
@@ -64,18 +86,40 @@ void LazyScholar::setLanguage(QString language){
 }
 
 
+void LazyScholar::initDrawPage(){
+	resetImage();
+	int size = lst.size();
+	setCharacterByIndex(rand() % size);
+}
+
+
+
 
 //Drawing Component
+
+void LazyScholar::setCharacterByIndex(int selectedIndex){
+	QVariantMap map =  lst[selectedIndex].toMap();
+
+	m_translate = map.value("text").toString();
+	emit translateChanged();
+
+	m_text_image = Image(QUrl(map.value("image").toString()));
+	emit textImageChanged();
+
+	maxStrokes = map["strokes"].toInt();
+
+
+}
 
 void LazyScholar::resetImage(){
 	q_image = Paint::initImageBorder(workingImageSize);
 
 	//q_image = Paint::drawFont(workingImageSize, "A", "English");
-    bb::ImageData imageData = bb::ImageData::fromPixels(q_image.bits(), bb::PixelFormat::RGBX, q_image.width(), q_image.height(), q_image.bytesPerLine());
+    bb::ImageData imageData = bb::ImageData::fromPixels(q_image.bits(), bb::PixelFormat::RGBA_Premultiplied, q_image.width(), q_image.height(), q_image.bytesPerLine());
 
     m_image = bb::cascades::Image(imageData);
 
-	strokes = 0;
+	strokes = 1;
 	emit imageChanged();
 }
 
@@ -87,7 +131,7 @@ void LazyScholar::paintImage(){
 	}
 
 	Paint::paintImage(q_image, lastPoint, endPoint);
-    bb::ImageData imageData = bb::ImageData::fromPixels(q_image.bits(), bb::PixelFormat::RGBX, q_image.width(), q_image.height(), q_image.bytesPerLine());
+    bb::ImageData imageData = bb::ImageData::fromPixels(q_image.bits(), bb::PixelFormat::RGBA_Premultiplied, q_image.width(), q_image.height(), q_image.bytesPerLine());
     m_image = bb::cascades::Image(imageData);
 	lastPoint = endPoint;
 	emit imageChanged();

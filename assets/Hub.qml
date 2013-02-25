@@ -61,7 +61,7 @@ Page {
                 if (name == "Draw"){
                     
                     newPage = paintDefn.createObject();
-                    learn.resetImage();
+                    learn.initDrawPage();
                 }else{
                      newPage = emptyDefn.createObject();
                      newPage.label =  chosenItem.title + " Coming Soon"

@@ -3,6 +3,7 @@ import bb.cascades 1.0
 
 NavigationPane {
     id: titleNav
+    peekEnabled: false
     Page {
         Container {
             layout: StackLayout {
@@ -57,7 +58,9 @@ NavigationPane {
                 onClicked: {
                     console.log("Get to menu");
                     var newPage = emptyDefn.createObject();
+                    
                     newPage.label = "Menu Coming Soon"
+                    newPage = paintDefn.createObject();
                     titleNav.push(newPage);
                 }
             } //end button
@@ -79,4 +82,7 @@ NavigationPane {
             source: "Empty.qml"
         }
     ] //end attachedObject
+    onPopTransitionEnded: {
+        page.destroy();
+     }
 }//end navigation pane

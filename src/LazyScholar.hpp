@@ -4,6 +4,8 @@
 
 #include <QObject>
 #include <bb/cascades/Image>
+#include <bb/data/JsonDataAccess>
+#include <bb/cascades/GroupDataModel>
 
 namespace bb {
 namespace cascades {
@@ -19,11 +21,15 @@ class Application;
 class LazyScholar: public QObject {
 Q_OBJECT
 
-	// The object that should be painted (either file name of 'circle' or 'square')
-Q_PROPERTY(QString object READ object WRITE setObject NOTIFY objectChanged)
-
 // The rendered image
 Q_PROPERTY(bb::cascades::Image image READ image NOTIFY imageChanged)
+
+
+// The English meaning and the translation
+Q_PROPERTY(QString translation READ translation  NOTIFY translateChanged)
+
+// The rendered text image
+Q_PROPERTY(bb::cascades::Image textImage READ textImage NOTIFY textImageChanged)
 
 
 
@@ -50,10 +56,13 @@ public:
 	void setEndPoint(float x, float y);
 
 	Q_INVOKABLE
-	void resetImage();
+	void initDrawPage();
 
 	Q_INVOKABLE
 	void updateStroke();
+
+	Q_INVOKABLE
+	void setCharacterByIndex(int selectedIndex);
 
 
 	Q_INVOKABLE
@@ -61,44 +70,39 @@ public:
 
 	int getHeight();
 
-	//static function for printing debug statements
-	static void printMessage(const char* msg){
-        fprintf(stdout, "%s\n", msg);
-        fflush(stdout);
-	}
-	static void printMessage(int num){
-	        fprintf(stdout, "%d\n", num);
-	        fflush(stdout);
-		}
-
-
 Q_SIGNALS:
 	// The change notification signals for the properties
-	void objectChanged();
 	void imageChanged();
+	void translateChanged();
+	void textImageChanged();
+
 
 private:
 
 	// The accessor methods for the properties
-	void setObject(const QString &object);
-	QString object() const;
-
-
 	bb::cascades::Image image() const;
+	bb::cascades::Image textImage() const;
+	QString translation() const;
+
+	void resetImage();
 
 
 private:
 	QString m_language;
-	QString m_object;
+	QString m_translate;
 
 	//parts of the drawing component
 	bb::cascades::Image m_image;
+	bb::cascades::Image m_text_image;
+
 	QImage q_image;
 	QPoint lastPoint;
 	QPoint endPoint;
 	int strokes;
-	const int maxStrokes;
-
+	int maxStrokes;
+	//storing chinese chars in JSON format
+	QVariantList lst;
+	bb::cascades::GroupDataModel *m;
 };
 
 #endif /* LazyScholar_HPP_ */

@@ -26,6 +26,7 @@
 							<tool id="com.qnx.qcc.tool.compiler.958910899" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.953415909" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.366311149" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtOpenGL"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtTest"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
@@ -62,6 +63,7 @@
 									<listOptionValue builtIn="false" value="QtSvg"/>
 									<listOptionValue builtIn="false" value="img"/>
 									<listOptionValue builtIn="false" value="QtTest"/>
+									<listOptionValue builtIn="false" value="bbdata"/>
 								</option>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1719206199" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
@@ -97,6 +99,7 @@
 							<tool id="com.qnx.qcc.tool.compiler.1363425934" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.73704369" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.1815452763" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtOpenGL"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/img"/>
@@ -132,6 +135,7 @@
 									<listOptionValue builtIn="false" value="QtSensors"/>
 									<listOptionValue builtIn="false" value="img"/>
 									<listOptionValue builtIn="false" value="QtTest"/>
+									<listOptionValue builtIn="false" value="bbdata"/>
 								</option>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.724561917" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
@@ -167,6 +171,7 @@
 							<tool id="com.qnx.qcc.tool.compiler.307601799" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.1417051314" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.2071988390" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtOpenGL"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtTest"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtCore"/>
@@ -213,6 +218,7 @@
 									<listOptionValue builtIn="false" value="QtSvg"/>
 									<listOptionValue builtIn="false" value="img"/>
 									<listOptionValue builtIn="false" value="QtTest"/>
+									<listOptionValue builtIn="false" value="bbdata"/>
 								</option>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1663330985" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>
@@ -248,6 +254,7 @@
 							<tool id="com.qnx.qcc.tool.compiler.1903209378" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.1747282807" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
 								<option id="com.qnx.qcc.option.compiler.includePath.509294086" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/bb/data"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtOpenGL"/>
 									<listOptionValue builtIn="false" value="${QNX_TARGET}/usr/include/qt4/QtTest"/>
 									<listOptionValue builtIn="false" value="&quot;${QNX_TARGET}/usr/include/qt4/QtCore&quot;"/>
@@ -293,6 +300,7 @@
 									<listOptionValue builtIn="false" value="QtSvg"/>
 									<listOptionValue builtIn="false" value="img"/>
 									<listOptionValue builtIn="false" value="QtTest"/>
+									<listOptionValue builtIn="false" value="bbdata"/>
 								</option>
 							</tool>
 							<tool id="com.qnx.qcc.tool.archiver.1790941002" name="QCC Archiver" superClass="com.qnx.qcc.tool.archiver"/>

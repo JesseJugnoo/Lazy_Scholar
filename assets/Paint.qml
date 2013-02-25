@@ -4,10 +4,22 @@ Page {
     Container {
         layout: DockLayout {
         }
+        
+        ImageView {
+            id: textImage
+            image: learn.textImage
+            //imageSource: "images/chinese_outline/one.png"
+            scalingMethod: ScalingMethod.Fill
+            minWidth: 15.0
+            preferredHeight: 700
+            preferredWidth: 700
+            verticalAlignment: VerticalAlignment.Center
+            horizontalAlignment: HorizontalAlignment.Center
+        }
         ImageView {
             id: paintImage
             image: learn.image
-            // imageSource: "images/picture.png"
+            //imageSource: "images/picture.png"
             scalingMethod: ScalingMethod.Fill
             minWidth: 15.0
             preferredHeight: 700
@@ -31,26 +43,20 @@ Page {
                 }
             }
         }
-        /*
         Label {
-            multiline: true
-            text: "<html><head><style>
-                                       h1
-                                       {
-                                           background-color:black;
-                                           color: white; 
-                                           
-                                       }
-                                   </style></head>
-                                   <h1>A</h1>
-                                   </html>"
+            text: learn.translation
             horizontalAlignment: HorizontalAlignment.Center
-            verticalAlignment: VerticalAlignment.Center
+            verticalAlignment: VerticalAlignment.Bottom
             textStyle {
                 fontSize: FontSize.XXLarge
-                fontFamily: "Helvectica"
             }
         }
-        */
+        Button {
+            text: "New Char"
+            horizontalAlignment: HorizontalAlignment.Center
+            onClicked: {
+                learn.initDrawPage();
+            }
+        }
     }
 }

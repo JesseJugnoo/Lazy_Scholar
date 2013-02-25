@@ -48,8 +48,8 @@ QImage Paint::drawFont(const QSize &size, QString font, QString locale ){
 // [1]
 QImage Paint::initImageBorder(const QSize &size)
 {
-    QImage image(size, QImage::Format_RGB32);
-    image.fill(Qt::white);
+    QImage image(size, QImage::Format_ARGB32);
+    image.fill(qRgba(0,0,0,0));
 
     const int w = size.width();
     const int h = size.height();

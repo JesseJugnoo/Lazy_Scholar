@@ -11,54 +11,54 @@
 //from scratchpad sample code
 
 //TODO: this code doent
+#include <Qt/qimage.h>
+#include <Qt/qpainter.h>
+#include "Paint.hpp"
 
-//#include "Paint.hpp"
+//Draw a font
 
-/*
- * Draw a circle in an image of the specified size.
- */
-//! [0]
-/*QImage Paint::drawCircle(const QSize &size)
-{
-    // Create an image of the appropriate size.
-    // The underlying data is reference counted so is cleaned up as needed.
+
+QImage Paint::drawFont(const QSize &size, QString font, QString locale ){
+
     QImage image(size, QImage::Format_RGB32);
-    image.fill(Qt::blue);
+    image.fill(Qt::white);
 
-    // Pick an arbitrary size for the circle
-    const int centerX = size.width() / 2;
-    const int centerY = size.height() / 2;
-    const int radius = std::min(centerX, centerY) * 2 / 3;
-    const int diameter = radius * 2;
+    const int w = size.width();
+    const int h = size.height();
 
-    // Draw the circle!
+    QPoint pt = QPoint(w / 2, h / 2);
+    //QFont qfont;
+    //qfont.setPixelSize(h);
+
+    // Draw the image with border!
     QPainter painter(&image);
-    painter.setPen(Qt::yellow);
-    painter.drawEllipse(centerX-radius, centerY-radius, diameter, diameter);
-
+    QPen pen(Qt::black, 5, Qt::SolidLine);
+    painter.setPen(pen);
+    //painter.setFont(qfont);
+    painter.drawText(pt, font);
     return image;
+
+
+
 }
+
 //! [0]
 
- * Draw a rectangle in an image of the specified size.
-
-é/! [1]
-QImage Paint::drawSquare(const QSize &size)
+// Draw a rectangle in an image of the specified size.
+// [1]
+QImage Paint::initImageBorder(const QSize &size)
 {
     QImage image(size, QImage::Format_RGB32);
-    image.fill(Qt::blue);
+    image.fill(Qt::white);
 
-    // Pick an arbitrary size for the square
-    const int centerX = size.width() / 2;
-    const int centerY = size.height() / 2;
-    const int w = size.width()  * 2 / 3;
-    const int h = size.height() * 2 / 3;
+    const int w = size.width();
+    const int h = size.height();
 
-    // Draw the square!
+    // Draw the image with border!
     QPainter painter(&image);
-    painter.setPen(Qt::yellow);
-    painter.drawRect(centerX - w/2, centerY - h/2, w, h);
-
+    QPen pen(Qt::black, 5, Qt::SolidLine);
+    painter.setPen(pen);
+    painter.drawRect(5,5, w-10, h-10);
     return image;
 }
 //! [1]
@@ -68,7 +68,9 @@ void Paint::paintImage(QImage &image, QPoint lastPoint, QPoint endPoint){
 
     // Draw a line on the image
     QPainter painter(&image);
-    painter.setPen(Qt::black);
+    QPen pen(Qt::black, 6, Qt::SolidLine);
+    painter.setPen(pen);
+    painter.setBrush(QBrush("000000"));
     painter.drawLine(lastPoint, endPoint);
-}*/
+}
 

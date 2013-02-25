@@ -64,6 +64,7 @@ Page {
                 
                 else if (name == "Quiz") {
                     newPage = quizDefn.createObject();
+                    learn.resetImage();
                 }else{
                      newPage = emptyDefn.createObject();
                      newPage.label =  chosenItem.title + " Coming Soon"

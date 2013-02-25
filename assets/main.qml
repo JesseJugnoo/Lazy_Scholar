@@ -18,6 +18,7 @@ NavigationPane {
             DropDown {
                 id: "language_choose"
                 onSelectedIndexChanged: {
+                   // learn.setLanguage(selectedValue.toString());
                     console.log("SelectedIndex was changed to " + selectedIndex);
                 }
                 bottomMargin: 100
@@ -36,6 +37,8 @@ NavigationPane {
                 preferredWidth: 400
                 horizontalAlignment: HorizontalAlignment.Center
                 expanded: false
+                layoutProperties: StackLayoutProperties {
+                }
             } //end dropdown
             Button {
                 id: startButton

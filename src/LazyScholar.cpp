@@ -1,21 +1,20 @@
 // Default empty project template
 #include "LazyScholar.hpp"
-//#include "Paint.hpp"
+#include "Paint.hpp"
 
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/Image>
 #include <bb/ImageData>
-
 using namespace bb::cascades;
 
 namespace {
-QSize workingImageSize(700, 500);
+QSize workingImageSize(700, 700);
 }
 
 LazyScholar::LazyScholar(bb::cascades::Application *app) :
-		QObject(app) {
+		QObject(app),  maxStrokes(4) {
 	// create scene document from main.qml asset
 	// set parent to created document to ensure it exists for the whole application lifetime
 	QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
@@ -32,6 +31,7 @@ LazyScholar::LazyScholar(bb::cascades::Application *app) :
 	AbstractPane *root = qml->createRootObject<AbstractPane>();
 	// set created root object as a scene
 	app->setScene(root);
+	strokes = 0;
 
 }
 
@@ -43,7 +43,6 @@ void LazyScholar::setObject(const QString &object) {
 	m_object = object;
 	emit objectChanged();
 
-	updateImage();
 }
 //! [1]
 
@@ -55,67 +54,45 @@ bb::cascades::Image LazyScholar::image() const {
 	return m_image;
 }
 
-/*
- * Return the size we need for the image that is to be replicated
- */
-//! [4]
-QSize LazyScholar::desiredReplicantSize() const {
-	const int numPixelsX = workingImageSize.width();
-	const int numPixelsY = workingImageSize.height();
-	return QSize(numPixelsX, numPixelsY);
+int LazyScholar::getWidth(){
+	return workingImageSize.width();
 }
-//! [4]
-/*
- * Update the ImageView with the replicated stamps or images
- */
-//! [5]
-void LazyScholar::updateImage() {
-	/*
-	QImage replicant;
-
-	if (m_object == QLatin1String("circle"))
-		replicant = Paint::drawCircle(desiredReplicantSize());
-	else if (m_object == QLatin1String("square"))
-		replicant = Paint::drawSquare(desiredReplicantSize());
-	else {
-		// Load from file
-		replicant.load(
-				QString::fromLatin1("app/native/assets/%1").arg("images/picture.png"));
-		replicant = replicant.scaled(desiredReplicantSize());
-	}
-
-	const bb::ImageData imageData = bb::ImageData::fromPixels(replicant.bits(),
-			bb::PixelFormat::RGBX, replicant.width(), replicant.height(),
-			replicant.bytesPerLine());
-	*/
-
-	//m_image = bb::cascades::Image(imageData);
-
-	m_image = bb::cascades::Image(QUrl("asset:///images/picture.png"));
-
-	emit imageChanged();
+int LazyScholar::getHeight(){
+	return workingImageSize.height();
 }
-//! [5]
+
+
+//Language Component
+void LazyScholar::setLanguage(QString language){
+	m_language = language;
+}
+
+
 
 //Drawing Component
 
+void LazyScholar::resetImage(){
+	q_image = Paint::initImageBorder(workingImageSize);
 
-void LazyScholar::paintImage(){
-	if (q_image.isNull()){
-		q_image = QImage(workingImageSize, QImage::Format_RGB32);
-		q_image.fill(Qt::white);
-	}
-
-    // Draw a line on the image
-    QPainter painter(&q_image);
-    painter.setPen(Qt::black);
-    painter.drawLine(lastPoint, endPoint);
-
+	//q_image = Paint::drawFont(workingImageSize, "A", "English");
     bb::ImageData imageData = bb::ImageData::fromPixels(q_image.bits(), bb::PixelFormat::RGBX, q_image.width(), q_image.height(), q_image.bytesPerLine());
 
     m_image = bb::cascades::Image(imageData);
 
+	strokes = 0;
+	emit imageChanged();
+}
 
+
+void LazyScholar::paintImage(){
+	//reset image if there are more strokes
+	if (strokes > maxStrokes){
+		resetImage();
+	}
+
+	Paint::paintImage(q_image, lastPoint, endPoint);
+    bb::ImageData imageData = bb::ImageData::fromPixels(q_image.bits(), bb::PixelFormat::RGBX, q_image.width(), q_image.height(), q_image.bytesPerLine());
+    m_image = bb::cascades::Image(imageData);
 	lastPoint = endPoint;
 	emit imageChanged();
 }
@@ -127,6 +104,10 @@ void LazyScholar::setLastPoint(float x, float y){
 
 void LazyScholar::setEndPoint(float x, float y){
 	endPoint = QPoint(x,y);
+}
+
+void LazyScholar::updateStroke(){
+	strokes++;
 }
 
 

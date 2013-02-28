@@ -24,16 +24,10 @@ LazyScholar::LazyScholar(bb::cascades::Application *app) :
 	// via Q_INVOKABLE will be found with the property and the name of the function.
 	qml->setContextProperty("learn", this);
 
-
-
-
-
 	// create root object for the UI
 	AbstractPane *root = qml->createRootObject<AbstractPane>();
 	// set created root object as a scene
 	app->setScene(root);
-	strokes = 1;
-
 	{
 	        //-- load JSON data from file to QVariant
 
@@ -52,17 +46,15 @@ LazyScholar::LazyScholar(bb::cascades::Application *app) :
 	            m->insertList(lst);
 	            //-- make the model flat
 	            m->setGrouping(ItemGrouping::None);
-	            		/*;
-	            //-- find cascades component of type ListView with an objectName property set to the value 'listView'
-	            ListView *list_view = root->findChild<ListView*>("listView");
-	            //-- assign data model object (m) to its GUI representation object (list_view)
-	            if(list_view) list_view->setDataModel(m);
-//				*/
 	        }
 
 	    }
 
+	soundMng = new SoundManager("sounds/");
+}
 
+LazyScholar::~LazyScholar(){
+	delete soundMng;
 }
 QString LazyScholar::translation() const{
 	return m_translate;
@@ -75,14 +67,9 @@ bb::cascades::Image LazyScholar::image() const {
 bb::cascades::Image LazyScholar::textImage() const {
 	return m_text_image;
 }
-
-int LazyScholar::getWidth(){
-	return workingImageSize.width();
+bb::cascades::Image LazyScholar::rating() const {
+	return m_rating;
 }
-int LazyScholar::getHeight(){
-	return workingImageSize.height();
-}
-
 
 //Language Component
 void LazyScholar::setLanguage(QString language){
@@ -91,9 +78,13 @@ void LazyScholar::setLanguage(QString language){
 
 
 void LazyScholar::initDrawPage(){
-	resetImage();
 	int size = lst.size();
-	setCharacterByIndex(rand() % size);
+	setCharacterByIndex( rand() % size);
+	resetImage();
+
+	//reset rating system
+	m_rating = Image();
+	emit ratingChanged();
 }
 
 
@@ -104,13 +95,15 @@ void LazyScholar::initDrawPage(){
 void LazyScholar::setCharacterByIndex(int selectedIndex){
 	QVariantMap map =  lst[selectedIndex].toMap();
 
-	m_translate = map.value("text").toString();
+	m_translate = map["text"].toString();
 	emit translateChanged();
 
-	m_text_image = Image(QUrl(map.value("image").toString()));
+	m_text_image = Image(QUrl(map["outline"].toString()));
 	emit textImageChanged();
 
 	maxStrokes = map["strokes"].toInt();
+
+	index = selectedIndex;
 
 
 }
@@ -118,13 +111,13 @@ void LazyScholar::setCharacterByIndex(int selectedIndex){
 void LazyScholar::resetImage(){
 	q_image = Paint::initImageBorder(workingImageSize);
 
-	//q_image = Paint::drawFont(workingImageSize, "A", "English");
     bb::ImageData imageData = bb::ImageData::fromPixels(q_image.bits(), bb::PixelFormat::RGBA_Premultiplied, q_image.width(), q_image.height(), q_image.bytesPerLine());
 
     m_image = bb::cascades::Image(imageData);
 
 	strokes = 1;
 	emit imageChanged();
+
 }
 
 
@@ -152,6 +145,36 @@ void LazyScholar::setEndPoint(float x, float y){
 
 void LazyScholar::updateStroke(){
 	strokes++;
+	if (strokes > maxStrokes){
+		QString srcLocation = lst[index].toMap().value("image").toString();
+		QImage srcImage(QString::fromLatin1("app/native/%1").arg(srcLocation));
+		//show accuracy rating
+		double result = Paint::compareDrawnImageByImage(q_image, srcImage);
+
+        qDebug() << "Result of compare: " << result;
+        setRating(result);
+	}
+}
+
+//Feedback system
+void LazyScholar::setRating(double rate){
+	QString soundFile = "";
+	if (rate > .75){
+		m_rating = Image(QUrl("assets/images/rating/green.png"));
+		soundFile = "ding.wav";
+	}else if (rate > .3){
+		m_rating = Image(QUrl("assets/images/rating/yellow.png"));
+		soundFile = "average.wav";
+	}else{
+		m_rating = Image(QUrl("assets/images/rating/red.png"));
+		soundFile = "fail.wav";
+	}
+
+	bool result = soundMng->play(soundFile, 2.0f, 2.0f);
+	qDebug() << result;
+	emit ratingChanged();
+
+
 }
 
 

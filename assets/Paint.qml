@@ -4,6 +4,15 @@ Page {
     Container {
         layout: DockLayout {
         }
+        topMargin: 50.0
+        ImageView {
+            id: border
+            imageSource: "images/border.png"
+            preferredHeight: 700
+            preferredWidth: 700
+            verticalAlignment: VerticalAlignment.Center
+            horizontalAlignment: HorizontalAlignment.Center
+        }
         
         ImageView {
             id: textImage
@@ -44,9 +53,9 @@ Page {
             }
         }
         Label {
+            id: translate
             text: learn.translation
             horizontalAlignment: HorizontalAlignment.Center
-            verticalAlignment: VerticalAlignment.Bottom
             textStyle {
                 fontSize: FontSize.XXLarge
             }
@@ -54,9 +63,14 @@ Page {
         Button {
             text: "New Char"
             horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Bottom
             onClicked: {
                 learn.initDrawPage();
             }
+        }
+        ImageView {
+            id: rating
+            image: learn.rating
         }
     }
 }

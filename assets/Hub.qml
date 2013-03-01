@@ -60,16 +60,15 @@ Page {
                 var newPage = null;
                 if (name == "Draw"){
                     newPage = paintDefn.createObject();
+                    //learn.resetImage();
+                    learn.initDrawPage();
                 }
                 else if (name == "Quiz") {
                     newPage = quizDefn.createObject();
-                    //learn.resetImage();
-                    //learn.initDrawPage();
                 }
                 else if(name == "Vocabulary") {
                     newPage = vocabularyDefn.createObject();
-                }
-                else{
+                }else{
                      newPage = emptyDefn.createObject();
                      newPage.label =  chosenItem.title + " Coming Soon"
                 }

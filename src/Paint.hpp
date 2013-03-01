@@ -19,7 +19,7 @@ namespace Paint {
 QImage drawFont(const QSize &size, QString font, QString locale);
 QImage initImageBorder(const QSize &size);
 void paintImage(QImage &image, QPoint lastPoint, QPoint endPoint);
-
+double compareDrawnImageByImage(QImage drawnImage, QImage source);
 }
 
 #endif

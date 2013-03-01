@@ -15,6 +15,11 @@
 #include <Qt/qpainter.h>
 #include "Paint.hpp"
 
+#include <bb/cascades/Application>
+#include <bb/cascades/QmlDocument>
+#include <algorithm>
+
+
 //Draw a font
 
 
@@ -50,15 +55,6 @@ QImage Paint::initImageBorder(const QSize &size)
 {
     QImage image(size, QImage::Format_ARGB32);
     image.fill(qRgba(0,0,0,0));
-
-    const int w = size.width();
-    const int h = size.height();
-
-    // Draw the image with border!
-    QPainter painter(&image);
-    QPen pen(Qt::black, 5, Qt::SolidLine);
-    painter.setPen(pen);
-    painter.drawRect(5,5, w-10, h-10);
     return image;
 }
 //! [1]
@@ -68,9 +64,52 @@ void Paint::paintImage(QImage &image, QPoint lastPoint, QPoint endPoint){
 
     // Draw a line on the image
     QPainter painter(&image);
-    QPen pen(Qt::black, 6, Qt::SolidLine);
+    QPen pen(Qt::black, 15, Qt::SolidLine);
     painter.setPen(pen);
-    painter.setBrush(QBrush("000000"));
     painter.drawLine(lastPoint, endPoint);
 }
+
+
+double Paint::compareDrawnImageByImage(QImage drawnImage, QImage source){
+	if (drawnImage.size() != source.size()){
+		//resize source to the dimension of the drawnImage
+		source = source.scaled(drawnImage.size());
+	}
+
+
+	double total = 0;
+	double maxTotal = 1;
+
+	for (int i = 1; i < drawnImage.width(); i++){
+
+		for(int j = 1; j < drawnImage.height(); j++){
+
+			QColor drawnPixel = QColor::fromRgba(drawnImage.pixel(i,j));
+			QColor sourcePixel = QColor::fromRgba(source.pixel(i,j));
+
+			//source is priority
+			if (sourcePixel.alpha() != 0){
+				maxTotal++;
+				if (drawnPixel.alpha() != 0){
+					total++;
+				}
+			}
+
+
+			//drawnImage is priority
+			if (drawnPixel.alpha() != 0){
+				maxTotal++;
+				if (sourcePixel.alpha() != 0){
+					total++;
+				}
+			}
+
+
+
+		}
+	}
+    double bumpUp = 1.5;
+	return  total / maxTotal * bumpUp ;
+}
+
 

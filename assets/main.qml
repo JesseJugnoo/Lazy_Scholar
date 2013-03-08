@@ -1,5 +1,6 @@
 // The title page of the app
 import bb.cascades 1.0
+import com.paint 1.0
 
 NavigationPane {
     id: titleNav
@@ -19,7 +20,7 @@ NavigationPane {
             DropDown {
                 id: "language_choose"
                 onSelectedIndexChanged: {
-                   // learn.setLanguage(selectedValue.toString());
+                    // learn.setLanguage(selectedValue.toString());
                     console.log("SelectedIndex was changed to " + selectedIndex);
                 }
                 bottomMargin: 100
@@ -56,41 +57,46 @@ NavigationPane {
                 text: "Menu"
                 horizontalAlignment: HorizontalAlignment.Center
                 onClicked: {
-                    console.log("Get to menu");
                     var newPage = emptyDefn.createObject();
-                    
                     newPage.label = "Menu Coming Soon"
-                    newPage = paintDefn.createObject();
                     titleNav.push(newPage);
                 }
             } //end button
         }
     } //end page
     attachedObjects: [
+
+        // Non-visual objects are added to QML as attached objects.
+        // The Paint is the object that contains the logics for drawing hand traces
+        //
+        Paint {
+            id: paint
+        },
+
         //Create the ComponentDefinition that represents the custom
         // component
         ComponentDefinition { //component for the hub
             id: hubDefn
             source: "Hub.qml"
         },
-        ComponentDefinition{
+        ComponentDefinition {
             id: paintDefn
             source: "Paint.qml"
         },
-        ComponentDefinition{
+        ComponentDefinition {
             id: quizDefn
             source: "Quiz.qml"
         },
-        ComponentDefinition{ //component for an empty page
-                    id: vocabularyDefn
-                    source: "vocabulary.qml"
+        ComponentDefinition { //component for an empty page
+            id: vocabularyDefn
+            source: "vocabulary.qml"
         },
-        ComponentDefinition{ //component for an empty page
+        ComponentDefinition { //component for an empty page
             id: emptyDefn
             source: "Empty.qml"
         }
     ] //end attachedObject
     onPopTransitionEnded: {
         page.destroy();
-     }
+    }
 }//end navigation pane

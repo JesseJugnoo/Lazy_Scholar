@@ -61,7 +61,7 @@ Page {
                 if (name == "Draw"){
                     newPage = paintDefn.createObject();
                     //learn.resetImage();
-                    learn.initDrawPage();
+                    paint.initDrawPage();
                 }
                 else if (name == "Quiz") {
                     newPage = quizDefn.createObject();

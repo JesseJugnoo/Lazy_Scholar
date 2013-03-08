@@ -21,8 +21,6 @@ namespace bb
     }
 }
 class quiz {
-	Q_OBJECT
-
 
 public:
 	quiz();
@@ -38,7 +36,6 @@ public:
      */
     quiz(const QStringList &keys, const QString& connectionName,
             QObject *parent = 0);
-    ~CityModel();
 
     /**
      * This function loads all items in the database where favorite=true to the model.

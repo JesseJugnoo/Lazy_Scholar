@@ -22,6 +22,12 @@ class Application;
 class LazyScholar: public QObject {
 Q_OBJECT
 
+
+public:
+	LazyScholar(bb::cascades::Application *app);
+	virtual ~LazyScholar();
+	/*
+
 // The rendered image
 Q_PROPERTY(bb::cascades::Image image READ image NOTIFY imageChanged)
 
@@ -38,9 +44,6 @@ Q_PROPERTY(bb::cascades::Image rating READ rating NOTIFY ratingChanged)
 
 
 
-public:
-	LazyScholar(bb::cascades::Application *app);
-	virtual ~LazyScholar();
 	//Language component
 	Q_INVOKABLE
 	void setLanguage(QString language);
@@ -118,6 +121,7 @@ private:
 
 	//The soundmanager, taken from one of the sample code
 	SoundManager *soundMng;
+	*/
 
 };
 

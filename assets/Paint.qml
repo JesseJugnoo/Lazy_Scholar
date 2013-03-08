@@ -16,7 +16,7 @@ Page {
         
         ImageView {
             id: textImage
-            image: learn.textImage
+            image: paint.textImage
             //imageSource: "images/chinese_outline/one.png"
             scalingMethod: ScalingMethod.Fill
             minWidth: 15.0
@@ -27,7 +27,7 @@ Page {
         }
         ImageView {
             id: paintImage
-            image: learn.image
+            image: paint.image
             //imageSource: "images/picture.png"
             scalingMethod: ScalingMethod.Fill
             minWidth: 15.0
@@ -41,20 +41,20 @@ Page {
 
                 // _scratchpad.object = "move";
                 if (event.touchType == TouchType.Move) {
-                    learn.setEndPoint(moveX, moveY);
-                    learn.paintImage();
+                    paint.setEndPoint(moveX, moveY);
+                    paint.paintImage();
                 } else if (event.touchType == TouchType.Down) {
-                    learn.setLastPoint(moveX, moveY);
-                    learn.setEndPoint(moveX, moveY);
-                    learn.paintImage();
+                    paint.setLastPoint(moveX, moveY);
+                    paint.setEndPoint(moveX, moveY);
+                    paint.paintImage();
                 } else if (event.touchType == TouchType.Up) {
-                    learn.updateStroke();
+                    paint.updateStroke();
                 }
             }
         }
         Label {
             id: translate
-            text: learn.translation
+            text: paint.translation
             horizontalAlignment: HorizontalAlignment.Center
             textStyle {
                 fontSize: FontSize.XXLarge
@@ -65,12 +65,12 @@ Page {
             horizontalAlignment: HorizontalAlignment.Center
             verticalAlignment: VerticalAlignment.Bottom
             onClicked: {
-                learn.initDrawPage();
+                paint.initDrawPage();
             }
         }
         ImageView {
             id: rating
-            image: learn.rating
+            image: paint.rating
         }
     }
 }

@@ -18,6 +18,7 @@ class QImage;
 #include <bb/data/JsonDataAccess>
 #include <bb/cascades/GroupDataModel>
 #include "soundmanager.h"
+#include "sql/DictionaryVO.hpp"
 
 
 class Paint: public QObject {
@@ -44,33 +45,38 @@ public:
 	virtual ~Paint();
 	//Language component
 	Q_INVOKABLE
-	void setLanguage(QString language);
+	void setLanguage(QVariant language);
 
 
 	//The drawing component
-	Q_INVOKABLE
-	//The cascade part calls this function to draw the lines made from the hand tracing
+	//The function to draw the lines made from the hand tracing
 	void paintImage();
 
 	Q_INVOKABLE
 	//Set the last point(which is also the start point) of the drawing component when drawing for the first time
-	void setLastPoint(float x, float y);
+	void startDraw(float x, float y);
 
 	Q_INVOKABLE
 	//Set the end point of the drawing component
-	void setEndPoint(float x, float y);
+	void draw(float x, float y);
 
 	Q_INVOKABLE
 	//initialize the drawing page
-	void initDrawPage();
+	void initDrawPage(QVariant level);
+
+
 
 	Q_INVOKABLE
 	//updating the number of strokes when drawing is done. Will also provide the feedback if there are enough strokes to finish a character
-	void updateStroke();
+	void finishDraw();
 
 	Q_INVOKABLE
 	//changing the character to draw by index
 	void setCharacterByIndex(int selectedIndex);
+
+	Q_INVOKABLE
+	//navigate to next character
+	void navigateNextCharacter(int addIndex);
 
 Q_SIGNALS:
 	// The change notification signals for the properties
@@ -117,7 +123,8 @@ private:
 	bb::cascades::Image m_rating;  //the feedback of the drawing
 
 	//the list of characters and their information
-	QVariantList lst;
+	vector<DictionaryVO> dictVOs;
+	vector<DictionaryVO> tmp;
 	int index;
 
 	//The soundmanager, taken from one of the sample code

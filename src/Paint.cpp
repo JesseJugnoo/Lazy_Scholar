@@ -14,6 +14,8 @@
 #include <Qt/qpainter.h>
 #include "Paint.hpp"
 #include "HandRecog.hpp";
+#include "sql/DictionaryDAO.hpp"
+#include "sql/DictionaryVO.hpp"
 
 #include <algorithm>
 
@@ -28,6 +30,104 @@ using namespace bb::data;
 namespace {
 QSize workingImageSize(700, 700);
 }
+Paint::Paint(QObject *parent) :
+		QObject(parent), m_language("Chinese") {
+	//-- load JSON data from file to QVariant
+
+	soundMng = new SoundManager("sounds/");
+}
+
+Paint::~Paint() {
+	delete soundMng;
+}
+QString Paint::translation() const {
+	return m_translate;
+}
+
+bb::cascades::Image Paint::image() const {
+	return m_image;
+}
+
+bb::cascades::Image Paint::textImage() const {
+	return m_text_image;
+}
+bb::cascades::Image Paint::rating() const {
+	return m_rating;
+}
+
+//Language Component
+void Paint::setLanguage(QVariant language) {
+	m_language = language.toString();
+}
+
+void Paint::initDrawPage(QVariant level) {
+
+	DictionaryDAO dictDAO;
+	dictVOs = dictDAO.getDictionaryByLanguageAndLevel(m_language, level.toString());
+
+
+	int size = dictVOs.size();
+	setCharacterByIndex(rand() % size);
+}
+
+//Drawing Component
+
+void Paint::setCharacterByIndex(int selectedIndex) {
+	DictionaryVO dict = dictVOs[selectedIndex];
+
+	QString pronun = " (" + dict.getPronunciation() + ")";
+	m_translate = dict.getTranslate() + pronun;
+	maxStrokes = dict.getStrokes();
+
+
+
+	QString srcLocation = dict.getImage();
+	qDebug() << srcLocation;
+	QImage srcImage(QString::fromLatin1("app/native/assets/images/chinese/%1").arg(srcLocation));
+	srcImage.invertPixels();
+
+	bb::ImageData imageData = bb::ImageData::fromPixels(srcImage.bits(),
+			bb::PixelFormat::RGBA_Premultiplied, srcImage.width(),
+			srcImage.height(), srcImage.bytesPerLine());
+
+	m_text_image = Image(imageData);
+
+	emit translateChanged();
+	emit textImageChanged();
+
+
+	//reset stuff
+	resetImage();
+	//reset rating system
+	m_rating = Image();
+	emit ratingChanged();
+
+
+	index = selectedIndex;
+
+}
+
+void Paint::navigateNextCharacter(int addIndex){
+	index = (index + addIndex + dictVOs.size()) % dictVOs.size();
+	qDebug() << index;
+	setCharacterByIndex(index);
+}
+
+void Paint::resetImage() {
+	q_image = initImageBorder(workingImageSize);
+
+	bb::ImageData imageData = bb::ImageData::fromPixels(q_image.bits(),
+			bb::PixelFormat::RGBA_Premultiplied, q_image.width(),
+			q_image.height(), q_image.bytesPerLine());
+
+	m_image = bb::cascades::Image(imageData);
+
+	strokes = 1;
+	emit imageChanged();
+
+}
+
+
 //Draw a font
 
 QImage Paint::drawFont(const QSize &size, QString font, QString locale) {
@@ -72,94 +172,6 @@ void Paint::paintImage(QImage &image, QPoint lastPoint, QPoint endPoint) {
 	painter.drawLine(lastPoint, endPoint);
 }
 
-Paint::Paint(QObject *parent) :
-		QObject(parent) {
-	//-- load JSON data from file to QVariant
-
-	JsonDataAccess jda;
-	lst = jda.load("app/native/assets/models/chinese_data.json").toList();
-	if (jda.hasError()) {
-		DataAccessError error = jda.error();
-		qDebug() << "JSON loading error: " << error.errorType() << ": "
-				<< error.errorMessage();
-	} else {
-		qDebug() << "JSON data loaded OK!";
-
-		GroupDataModel *m = new GroupDataModel(this);
-		m->setParent(this);
-		//-- insert the JSON data to model
-		m->insertList(lst);
-		//-- make the model flat
-		m->setGrouping(ItemGrouping::None);
-	}
-
-	soundMng = new SoundManager("sounds/");
-}
-
-Paint::~Paint() {
-	delete soundMng;
-}
-QString Paint::translation() const {
-	return m_translate;
-}
-
-bb::cascades::Image Paint::image() const {
-	return m_image;
-}
-
-bb::cascades::Image Paint::textImage() const {
-	return m_text_image;
-}
-bb::cascades::Image Paint::rating() const {
-	return m_rating;
-}
-
-//Language Component
-void Paint::setLanguage(QString language) {
-	m_language = language;
-}
-
-void Paint::initDrawPage() {
-	int size = lst.size();
-	setCharacterByIndex(rand() % size);
-	resetImage();
-
-	//reset rating system
-	m_rating = Image();
-	emit ratingChanged();
-}
-
-//Drawing Component
-
-void Paint::setCharacterByIndex(int selectedIndex) {
-	QVariantMap map = lst[selectedIndex].toMap();
-
-	m_translate = map["text"].toString();
-	emit translateChanged();
-
-	m_text_image = Image(QUrl(map["outline"].toString()));
-
-	emit textImageChanged();
-
-	maxStrokes = map["strokes"].toInt();
-
-	index = selectedIndex;
-
-}
-
-void Paint::resetImage() {
-	q_image = initImageBorder(workingImageSize);
-
-	bb::ImageData imageData = bb::ImageData::fromPixels(q_image.bits(),
-			bb::PixelFormat::RGBA_Premultiplied, q_image.width(),
-			q_image.height(), q_image.bytesPerLine());
-
-	m_image = bb::cascades::Image(imageData);
-
-	strokes = 1;
-	emit imageChanged();
-
-}
 
 void Paint::paintImage() {
 	//reset image if there are more strokes
@@ -176,19 +188,20 @@ void Paint::paintImage() {
 	emit imageChanged();
 }
 
-void Paint::setLastPoint(float x, float y) {
+void Paint::startDraw(float x, float y) {
 	lastPoint = QPoint(x, y);
 }
 
-void Paint::setEndPoint(float x, float y) {
+void Paint::draw(float x, float y) {
 	endPoint = QPoint(x, y);
+	paintImage();
 }
 
-void Paint::updateStroke() {
+void Paint::finishDraw() {
 	strokes++;
 	if (strokes > maxStrokes) {
-		QString srcLocation = lst[index].toMap().value("image").toString();
-		QImage srcImage(QString::fromLatin1("app/native/%1").arg(srcLocation));
+		QString srcLocation = dictVOs[index].getImage();
+		QImage srcImage(QString::fromLatin1("app/native/assets/images/chinese/%1").arg(srcLocation));
 		//show accuracy rating
 		double result = HandRecog::compareDrawnImageByImage(q_image, srcImage);
 

@@ -20,7 +20,7 @@ NavigationPane {
             DropDown {
                 id: "language_choose"
                 onSelectedIndexChanged: {
-                    // learn.setLanguage(selectedValue.toString());
+                    paint.setLanguage(selectedValue);
                     console.log("SelectedIndex was changed to " + selectedIndex);
                 }
                 bottomMargin: 100

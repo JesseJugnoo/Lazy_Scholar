@@ -5,9 +5,12 @@ Page {
         layout: DockLayout {
         }
         topMargin: 50.0
+        
         ImageView {
-            id: border
-            imageSource: "images/border.png"
+            id: textImage
+            image: paint.textImage
+            scalingMethod: ScalingMethod.Fill
+            minWidth: 15.0
             preferredHeight: 700
             preferredWidth: 700
             verticalAlignment: VerticalAlignment.Center
@@ -15,11 +18,8 @@ Page {
         }
         
         ImageView {
-            id: textImage
-            image: paint.textImage
-            //imageSource: "images/chinese_outline/one.png"
-            scalingMethod: ScalingMethod.Fill
-            minWidth: 15.0
+            id: border
+            imageSource: "images/border.png"
             preferredHeight: 700
             preferredWidth: 700
             verticalAlignment: VerticalAlignment.Center
@@ -38,17 +38,17 @@ Page {
             onTouch: {
                 var moveX = event.localX;
                 var moveY = event.localY; //touch event is in wrong location if there is no offset
-
-                // _scratchpad.object = "move";
-                if (event.touchType == TouchType.Move) {
-                    paint.setEndPoint(moveX, moveY);
-                    paint.paintImage();
-                } else if (event.touchType == TouchType.Down) {
-                    paint.setLastPoint(moveX, moveY);
-                    paint.setEndPoint(moveX, moveY);
-                    paint.paintImage();
-                } else if (event.touchType == TouchType.Up) {
-                    paint.updateStroke();
+                
+                switch(event.touchType){
+                    case TouchType.Down:
+                        paint.startDraw(moveX, moveY);
+                    //FALL THROUGH
+                    case TouchType.Move:
+                        paint.draw(moveX, moveY);
+                        break;
+                    case TouchType.Up:
+                        paint.finishDraw();
+                        break;
                 }
             }
         }
@@ -65,7 +65,7 @@ Page {
             horizontalAlignment: HorizontalAlignment.Center
             verticalAlignment: VerticalAlignment.Bottom
             onClicked: {
-                paint.initDrawPage();
+                paint.navigateNextCharacter(1);
             }
         }
         ImageView {

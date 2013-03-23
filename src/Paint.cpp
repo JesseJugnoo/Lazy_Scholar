@@ -14,6 +14,8 @@
 #include <Qt/qpainter.h>
 #include "Paint.hpp"
 #include "HandRecog.hpp";
+#include "sql/DictionaryDAO.hpp"
+#include "sql/DictionaryVO.hpp"
 
 #include <algorithm>
 
@@ -28,72 +30,17 @@ using namespace bb::data;
 namespace {
 QSize workingImageSize(700, 700);
 }
-//Draw a font
-
-QImage Paint::drawFont(const QSize &size, QString font, QString locale) {
-
-	QImage image(size, QImage::Format_RGB32);
-	image.fill(Qt::white);
-
-	const int w = size.width();
-	const int h = size.height();
-
-	QPoint pt = QPoint(w / 2, h / 2);
-	//QFont qfont;
-	//qfont.setPixelSize(h);
-
-	// Draw the image with border!
-	QPainter painter(&image);
-	QPen pen(Qt::black, 5, Qt::SolidLine);
-	painter.setPen(pen);
-	//painter.setFont(qfont);
-	painter.drawText(pt, font);
-	return image;
-
-}
-
-//! [0]
-
-// Draw a rectangle in an image of the specified size.
-// [1]
-QImage Paint::initImageBorder(const QSize &size) {
-	QImage image(size, QImage::Format_ARGB32);
-	image.fill(qRgba(0, 0, 0, 0));
-	return image;
-}
-//! [1]
-
-void Paint::paintImage(QImage &image, QPoint lastPoint, QPoint endPoint) {
-
-	// Draw a line on the image
-	QPainter painter(&image);
-	QPen pen(Qt::black, 15, Qt::SolidLine);
-	painter.setPen(pen);
-	painter.drawLine(lastPoint, endPoint);
-}
-
 Paint::Paint(QObject *parent) :
-		QObject(parent) {
+		QObject(parent), m_language("Chinese") {
 	//-- load JSON data from file to QVariant
 
-	JsonDataAccess jda;
-	lst = jda.load("app/native/assets/models/chinese_data.json").toList();
-	if (jda.hasError()) {
-		DataAccessError error = jda.error();
-		qDebug() << "JSON loading error: " << error.errorType() << ": "
-				<< error.errorMessage();
-	} else {
-		qDebug() << "JSON data loaded OK!";
-
-		GroupDataModel *m = new GroupDataModel(this);
-		m->setParent(this);
-		//-- insert the JSON data to model
-		m->insertList(lst);
-		//-- make the model flat
-		m->setGrouping(ItemGrouping::None);
-	}
-
 	soundMng = new SoundManager("sounds/");
+
+	  /* initialize random seed: */
+	  srand (time(NULL));
+
+		timer2.start();
+
 }
 
 Paint::~Paint() {
@@ -115,36 +62,64 @@ bb::cascades::Image Paint::rating() const {
 }
 
 //Language Component
-void Paint::setLanguage(QString language) {
-	m_language = language;
+void Paint::setLanguage(QVariant language) {
+	m_language = language.toString();
 }
 
-void Paint::initDrawPage() {
-	int size = lst.size();
-	setCharacterByIndex(rand() % size);
-	resetImage();
+void Paint::initDrawPage(QVariant level) {
 
-	//reset rating system
-	m_rating = Image();
-	emit ratingChanged();
+	DictionaryDAO dictDAO;
+	dictVOs = dictDAO.getDictionaryByLanguageAndLevelVO(m_language, level.toString());
+
+
+	int size = dictVOs.size();
+	if (size != 0){
+		setCharacterByIndex(rand() % size);
+	}
 }
 
 //Drawing Component
 
 void Paint::setCharacterByIndex(int selectedIndex) {
-	QVariantMap map = lst[selectedIndex].toMap();
+	DictionaryVO dict = dictVOs[selectedIndex];
 
-	m_translate = map["text"].toString();
+	QString pronun = " (" + dict.getPronunciation() + ")";
+	m_translate = dict.getTranslate() + pronun;
+	maxStrokes = dict.getStrokes();
+
+
+
+	QString srcLocation = dict.getImage();
+	QImage srcImage(QString::fromLatin1("app/native/assets/images/%1").arg(srcLocation));
+	srcImage.invertPixels();
+
+	bb::ImageData imageData = bb::ImageData::fromPixels(srcImage.bits(),
+			bb::PixelFormat::RGBA_Premultiplied, srcImage.width(),
+			srcImage.height(), srcImage.bytesPerLine());
+
+	m_text_image = Image(imageData);
+
 	emit translateChanged();
-
-	m_text_image = Image(QUrl(map["outline"].toString()));
-
 	emit textImageChanged();
 
-	maxStrokes = map["strokes"].toInt();
+
+	//reset stuff
+	resetImage();
+	//reset rating system
+	m_rating = Image();
+	emit ratingChanged();
+	//reset timer
+	timer = clock();
 
 	index = selectedIndex;
 
+}
+
+void Paint::navigateNextCharacter(int addIndex){
+	if (dictVOs.size()){
+		index = (index + addIndex + dictVOs.size()) % dictVOs.size();
+		setCharacterByIndex(index);
+	}
 }
 
 void Paint::resetImage() {
@@ -159,12 +134,38 @@ void Paint::resetImage() {
 	strokes = 1;
 	emit imageChanged();
 
+
+
 }
+
+
+
+//! [0]
+
+// Draw a rectangle in an image of the specified size.
+// [1]
+QImage Paint::initImageBorder(const QSize &size) {
+	QImage image(size, QImage::Format_ARGB32);
+	image.fill(qRgba(0, 0, 0, 0));
+	return image;
+}
+//! [1]
+
+void Paint::paintImage(QImage &image, QPoint lastPoint, QPoint endPoint) {
+
+	// Draw a line on the image
+	QPainter painter(&image);
+	QPen pen(Qt::black, 15, Qt::SolidLine);
+	painter.setPen(pen);
+	painter.drawLine(lastPoint, endPoint);
+}
+
 
 void Paint::paintImage() {
 	//reset image if there are more strokes
 	if (strokes > maxStrokes) {
 		resetImage();
+		timer = clock();
 	}
 
 	paintImage(q_image, lastPoint, endPoint);
@@ -176,25 +177,45 @@ void Paint::paintImage() {
 	emit imageChanged();
 }
 
-void Paint::setLastPoint(float x, float y) {
+void Paint::startDraw(float x, float y) {
 	lastPoint = QPoint(x, y);
 }
 
-void Paint::setEndPoint(float x, float y) {
+void Paint::draw(float x, float y) {
 	endPoint = QPoint(x, y);
+	paintImage();
 }
 
-void Paint::updateStroke() {
+bool Paint::finishDraw() {
+
+	bool check_result = false;
+
 	strokes++;
 	if (strokes > maxStrokes) {
-		QString srcLocation = lst[index].toMap().value("image").toString();
-		QImage srcImage(QString::fromLatin1("app/native/%1").arg(srcLocation));
-		//show accuracy rating
+		QString srcLocation = dictVOs[index].getImage();
+		QImage srcImage(QString::fromLatin1("app/native/assets/images/%1").arg(srcLocation));
+		//calculate accuracy rating
 		double result = HandRecog::compareDrawnImageByImage(q_image, srcImage);
 
 		qDebug() << "Result of compare: " << result;
+
+		//calculate the time rate
+		float time_elapsed = ((float)(clock() - timer)) / CLOCKS_PER_SEC;
+
+		double SEC_PER_STROKE = 1.75; 	//constant of the second it took to draw 1 stroke
+
+		double time_rate = SEC_PER_STROKE * maxStrokes / time_elapsed;
+
+		//multiply the accuracy rate and time rate to get the resulting rate
+		result = result * time_rate;
+
+
 		setRating(result);
+
+		check_result = true;
+
 	}
+	return check_result;
 }
 
 //Feedback system
@@ -208,7 +229,7 @@ void Paint::setRating(double rate) {
 		soundFile = "average.wav";
 	} else {
 		m_rating = Image(QUrl("assets/images/rating/red.png"));
-		soundFile = "fail.wav";
+		soundFile = "BUZZER.wav";
 	}
 
 	bool result = soundMng->play(soundFile, 2.0f, 2.0f);

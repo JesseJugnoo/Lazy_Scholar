@@ -75,13 +75,14 @@ SoundManager::SoundManager(QString soundDirectory)
             // Attempt to create buffers for all the files.
             QFileInfo fileInfo = list.at(i);
             bufferID = alutCreateBufferFromFile(fileInfo.absoluteFilePath().toStdString().c_str());
-            if (alutGetError() == ALUT_ERROR_NO_ERROR) {
+            ALenum error = alutGetError();
+            if (error == ALUT_ERROR_NO_ERROR) {
 
                 // Add the bufferID to the Hash table with the file name as key.
                 mSoundBuffers[fileInfo.fileName()] = bufferID;
 
             } else {
-                reportALUTError();
+            	qDebug() << "For " << fileInfo.fileName() << ": ALUT reported the following error: " << alutGetErrorString(error);
             }
         }
     }

@@ -82,7 +82,7 @@ SoundManager::SoundManager(QString soundDirectory)
                 mSoundBuffers[fileInfo.fileName()] = bufferID;
 
             } else {
-            	qDebug() << "ALUT reported the following error: " << alutGetErrorString(error);
+            	qDebug() << "For " << fileInfo.fileName() << ": ALUT reported the following error: " << alutGetErrorString(error);
             }
         }
     }

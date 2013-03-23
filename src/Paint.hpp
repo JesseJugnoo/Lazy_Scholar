@@ -20,6 +20,8 @@ class QImage;
 #include "soundmanager.h"
 #include "sql/DictionaryVO.hpp"
 
+#include <ctime> //for time
+#include <time.h>
 
 class Paint: public QObject {
 Q_OBJECT
@@ -68,7 +70,8 @@ public:
 
 	Q_INVOKABLE
 	//updating the number of strokes when drawing is done. Will also provide the feedback if there are enough strokes to finish a character
-	void finishDraw();
+	//returns true if it receives the result from the hand recog, false otherwise
+	bool finishDraw();
 
 	Q_INVOKABLE
 	//changing the character to draw by index
@@ -97,7 +100,6 @@ private:
 	void resetImage();
 	void setRating(double rating);
 
-	QImage drawFont(const QSize &size, QString font, QString locale);
 	QImage initImageBorder(const QSize &size);
 	void paintImage(QImage &image, QPoint lastPoint, QPoint endPoint);
 
@@ -118,6 +120,8 @@ private:
 	//the number of strokes to complete a character
 	int strokes;
 	int maxStrokes;
+	clock_t timer; //timer
+	QTimer timer2;
 
 	bb::cascades::Image m_text_image; //the outline of the character to draw
 	bb::cascades::Image m_rating;  //the feedback of the drawing

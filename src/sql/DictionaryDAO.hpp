@@ -28,7 +28,9 @@ public:
 	}
 
 	DictionaryVO getDictionaryByCharVO(QString ch);
-	vector<DictionaryVO> getDictionaryByLanguageAndLevel(QString language, QString level);
+	vector<DictionaryVO> getDictionaryByLanguageAndLevelVO(QString language, QString level);
+	vector<DictionaryVO> getDictionaryAllVO();
+
 
 };
 

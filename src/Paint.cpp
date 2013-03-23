@@ -35,6 +35,12 @@ Paint::Paint(QObject *parent) :
 	//-- load JSON data from file to QVariant
 
 	soundMng = new SoundManager("sounds/");
+
+	  /* initialize random seed: */
+	  srand (time(NULL));
+
+		timer2.start();
+
 }
 
 Paint::~Paint() {
@@ -63,11 +69,13 @@ void Paint::setLanguage(QVariant language) {
 void Paint::initDrawPage(QVariant level) {
 
 	DictionaryDAO dictDAO;
-	dictVOs = dictDAO.getDictionaryByLanguageAndLevel(m_language, level.toString());
+	dictVOs = dictDAO.getDictionaryByLanguageAndLevelVO(m_language, level.toString());
 
 
 	int size = dictVOs.size();
-	setCharacterByIndex(rand() % size);
+	if (size != 0){
+		setCharacterByIndex(rand() % size);
+	}
 }
 
 //Drawing Component
@@ -82,8 +90,7 @@ void Paint::setCharacterByIndex(int selectedIndex) {
 
 
 	QString srcLocation = dict.getImage();
-	qDebug() << srcLocation;
-	QImage srcImage(QString::fromLatin1("app/native/assets/images/chinese/%1").arg(srcLocation));
+	QImage srcImage(QString::fromLatin1("app/native/assets/images/%1").arg(srcLocation));
 	srcImage.invertPixels();
 
 	bb::ImageData imageData = bb::ImageData::fromPixels(srcImage.bits(),
@@ -98,19 +105,24 @@ void Paint::setCharacterByIndex(int selectedIndex) {
 
 	//reset stuff
 	resetImage();
+	//stroke start at maxStroke + 1 to automatically resets itself
+	strokes = maxStrokes + 1;
+
 	//reset rating system
 	m_rating = Image();
 	emit ratingChanged();
-
+	//reset timer
+	timer = clock();
 
 	index = selectedIndex;
 
 }
 
 void Paint::navigateNextCharacter(int addIndex){
-	index = (index + addIndex + dictVOs.size()) % dictVOs.size();
-	qDebug() << index;
-	setCharacterByIndex(index);
+	if (dictVOs.size()){
+		index = (index + addIndex + dictVOs.size()) % dictVOs.size();
+		setCharacterByIndex(index);
+	}
 }
 
 void Paint::resetImage() {
@@ -125,32 +137,11 @@ void Paint::resetImage() {
 	strokes = 1;
 	emit imageChanged();
 
+
+
 }
 
 
-//Draw a font
-
-QImage Paint::drawFont(const QSize &size, QString font, QString locale) {
-
-	QImage image(size, QImage::Format_RGB32);
-	image.fill(Qt::white);
-
-	const int w = size.width();
-	const int h = size.height();
-
-	QPoint pt = QPoint(w / 2, h / 2);
-	//QFont qfont;
-	//qfont.setPixelSize(h);
-
-	// Draw the image with border!
-	QPainter painter(&image);
-	QPen pen(Qt::black, 5, Qt::SolidLine);
-	painter.setPen(pen);
-	//painter.setFont(qfont);
-	painter.drawText(pt, font);
-	return image;
-
-}
 
 //! [0]
 
@@ -177,6 +168,7 @@ void Paint::paintImage() {
 	//reset image if there are more strokes
 	if (strokes > maxStrokes) {
 		resetImage();
+		timer = clock();
 	}
 
 	paintImage(q_image, lastPoint, endPoint);
@@ -197,17 +189,36 @@ void Paint::draw(float x, float y) {
 	paintImage();
 }
 
-void Paint::finishDraw() {
+bool Paint::finishDraw() {
+
+	bool check_result = false;
+
 	strokes++;
 	if (strokes > maxStrokes) {
 		QString srcLocation = dictVOs[index].getImage();
-		QImage srcImage(QString::fromLatin1("app/native/assets/images/chinese/%1").arg(srcLocation));
+		QImage srcImage(QString::fromLatin1("app/native/assets/images/%1").arg(srcLocation));
 		//show accuracy rating
 		double result = HandRecog::compareDrawnImageByImage(q_image, srcImage);
 
 		qDebug() << "Result of compare: " << result;
+
+		//calculate the time rate
+		float time_elapsed = ((float)(clock() - timer)) / CLOCKS_PER_SEC;
+
+		double SEC_PER_STROKE = 1.75; 	//constant of the second it took to draw 1 stroke
+
+		double time_rate = SEC_PER_STROKE * maxStrokes / time_elapsed;
+
+		//multiply the accuracy rate and time rate to get the resulting rate
+		result = result * time_rate;
+
+
 		setRating(result);
+
+		check_result = true;
+
 	}
+	return check_result;
 }
 
 //Feedback system
@@ -221,7 +232,7 @@ void Paint::setRating(double rate) {
 		soundFile = "average.wav";
 	} else {
 		m_rating = Image(QUrl("assets/images/rating/red.png"));
-		soundFile = "fail.wav";
+		soundFile = "BUZZER.wav";
 	}
 
 	bool result = soundMng->play(soundFile, 2.0f, 2.0f);

@@ -88,10 +88,9 @@ DictionaryVO DictionaryDAO::getDictionaryByCharVO(QString ch){
 
 }
 
-vector<DictionaryVO> DictionaryDAO::getDictionaryByLanguageAndLevel(QString language, QString level){
+vector<DictionaryVO> DictionaryDAO::getDictionaryAllVO(){
 	vector<DictionaryVO> result;
 
-	extra_sql = " WHERE language='"+language+ "' AND level="+level;
 	QVariantList list = getDictionaryAll();
 
 	for(int i = 0; i < list.size(); i++){
@@ -99,5 +98,16 @@ vector<DictionaryVO> DictionaryDAO::getDictionaryByLanguageAndLevel(QString lang
 		result.push_back(dict);
 	}
 	return result;
+}
+
+
+vector<DictionaryVO> DictionaryDAO::getDictionaryByLanguageAndLevelVO(QString language, QString level){
+
+	extra_sql = " WHERE language='"+language+ "' AND level="+level;
+
+	vector<DictionaryVO> result = getDictionaryAllVO();
+
+	return result;
+
 }
 

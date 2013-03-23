@@ -2,6 +2,7 @@
 #define _DICTVO_
 
 #include <QObject>
+#include <QVariant>
 #include <vector>
 using namespace std;
 
@@ -93,6 +94,19 @@ public:
 		//Getters
 		int getLevel(){
 			return level;
+		}
+
+		QVariantMap toQVariantMap(){
+			QVariantMap res;
+			res["character"] = character;
+			res["language"] = language;
+			res["translate"] = translate;
+			res["pronun"] = pronun;
+			res["image"] = image;
+			res["strokes"] = strokes;
+			res["level"] = level;
+
+			return res;
 		}
 
 

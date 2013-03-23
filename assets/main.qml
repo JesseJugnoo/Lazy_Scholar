@@ -2,6 +2,7 @@
 import bb.cascades 1.0
 import com.paint 1.0
 
+
 NavigationPane {
     id: titleNav
     peekEnabled: false
@@ -21,7 +22,6 @@ NavigationPane {
                 id: "language_choose"
                 onSelectedIndexChanged: {
                     paint.setLanguage(selectedValue);
-                    console.log("SelectedIndex was changed to " + selectedIndex);
                 }
                 bottomMargin: 100
                 //use a json file to populate data
@@ -30,7 +30,7 @@ NavigationPane {
                     value: "Chinese"
                     selected: true
                 }
-
+                
                 // text + description
                 Option {
                     text: "English"
@@ -65,14 +65,14 @@ NavigationPane {
         }
     } //end page
     attachedObjects: [
-
+        
         // Non-visual objects are added to QML as attached objects.
         // The Paint is the object that contains the logics for drawing hand traces
         //
         Paint {
             id: paint
         },
-
+        
         //Create the ComponentDefinition that represents the custom
         // component
         ComponentDefinition { //component for the hub

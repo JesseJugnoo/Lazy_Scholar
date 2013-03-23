@@ -1,0 +1,8 @@
+[
+{"text":"One - yī", "label":"One",  "strokes":1,"outline":"assets/images/chinese_outline/one.png", "image":"assets/images/chinese/one.png"},
+{"text":"Fire - huǒ","label":"Fire", "strokes":4,"outline":"assets/images/chinese_outline/fire.png", "image":"assets/images/chinese/fire.png"},
+{"text":"Mountain - shān","label":"Mountain", "strokes":3,"outline":"assets/images/chinese_outline/mountain.png", "image":"assets/images/chinese/mountain.png"},
+{"text":"Two - èr","label":"Two", "strokes":2,"outline":"assets/images/chinese_outline/two.png", "image":"assets/images/chinese/two.png"},
+{"text":"Three - sān","label":"Three", "strokes":3,"outline":"assets/images/chinese_outline/three.png", "image":"assets/images/chinese/three.png"},
+{"text":"Sky - tiān","label":"Sky", "strokes":4,"outline":"assets/images/chinese_outline/sky.png", "image":"assets/images/chinese/sky.png"}
+]

@@ -47,7 +47,6 @@ NavigationPane {
                 text: "Start"
                 horizontalAlignment: HorizontalAlignment.Center
                 onClicked: {
-                    console.log("started game");
                     var newPage = hubDefn.createObject();
                     titleNav.push(newPage);
                 }

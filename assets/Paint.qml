@@ -74,7 +74,8 @@ Page {
                         switch(event.touchType){
                             case TouchType.Down:
                                 paint.startDraw(moveX, moveY);
-                            //FALL THROUGH
+                                paint.draw(moveX, moveY);
+                                break;
                             case TouchType.Move:
                                 paint.draw(moveX, moveY);
                                 

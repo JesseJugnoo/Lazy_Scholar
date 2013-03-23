@@ -105,9 +105,6 @@ void Paint::setCharacterByIndex(int selectedIndex) {
 
 	//reset stuff
 	resetImage();
-	//stroke start at maxStroke + 1 to automatically resets itself
-	strokes = maxStrokes + 1;
-
 	//reset rating system
 	m_rating = Image();
 	emit ratingChanged();
@@ -197,7 +194,7 @@ bool Paint::finishDraw() {
 	if (strokes > maxStrokes) {
 		QString srcLocation = dictVOs[index].getImage();
 		QImage srcImage(QString::fromLatin1("app/native/assets/images/%1").arg(srcLocation));
-		//show accuracy rating
+		//calculate accuracy rating
 		double result = HandRecog::compareDrawnImageByImage(q_image, srcImage);
 
 		qDebug() << "Result of compare: " << result;

@@ -45,6 +45,7 @@ Q_PROPERTY(bb::cascades::Image rating READ rating NOTIFY ratingChanged)
 public:
 	Paint(QObject *parent = 0);
 	virtual ~Paint();
+
 	//Language component
 	Q_INVOKABLE
 	void setLanguage(QVariant language);

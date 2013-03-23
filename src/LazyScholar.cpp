@@ -1,7 +1,7 @@
 // Default empty project template
 #include "LazyScholar.hpp"
 #include "Paint.hpp"
-
+#include "quiz.hpp"
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
@@ -20,7 +20,7 @@ LazyScholar::LazyScholar(bb::cascades::Application *app) :
     // correct or not. qmlRegisterType will make the objects recongnizable by the
     // QML parsing engine.
     qmlRegisterType < Paint > ("com.paint", 1, 0, "Paint");
-
+    qmlRegisterType <quiz> ("com.quiz", 1, 0, "quiz");
 
 	// create scene document from main.qml asset
 	// set parent to created document to ensure it exists for the whole application lifetime

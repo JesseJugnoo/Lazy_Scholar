@@ -10,22 +10,19 @@ Page {
         }
         topMargin: 50.0
         
-        
         Container{
             layout:StackLayout {
             
             } 
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
-            
-            
+
             ImageView {
                 id: rating
                 image: paint.rating
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Center
                 bottomMargin: 50
-            
             }
             Container{
                 background: Colour.create ("F8F8F8")
@@ -104,8 +101,7 @@ Page {
                                 }
                                 break;
                         }
-                    
-                    }
+                    }//on touch end
                     animations: [
                         FadeTransition {
                             id: fadeAnim
@@ -117,7 +113,6 @@ Page {
                     ]
                 }
             }
-            
             
             Label {
                 id: translate
@@ -135,12 +130,10 @@ Page {
             horizontalAlignment: HorizontalAlignment.Left
             verticalAlignment: VerticalAlignment.Bottom
             onTouch: {
-                
                 if (event.touchType == TouchType.Down){
                     paint.navigateNextCharacter(-1);
                 }
             }
-        
         }
         
         ImageView{
@@ -150,7 +143,6 @@ Page {
             verticalAlignment: VerticalAlignment.Bottom
             rotationZ: 180
             onTouch: {
-                
                 if (event.touchType == TouchType.Down){
                     paint.navigateNextCharacter(1);
                 }

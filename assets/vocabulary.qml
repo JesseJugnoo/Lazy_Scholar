@@ -27,8 +27,6 @@ Page {
             //...
         }   
         
-        
-        
         attachedObjects: [
             GroupDataModel {
                 id: dataModel

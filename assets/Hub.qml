@@ -3,8 +3,8 @@ import bb.cascades 1.0
 Page {
     id: hubPage
     Container {
-        
         background: back.imagePaint
+        
         ListView {
             id: hubList
             objectName: "hubList"

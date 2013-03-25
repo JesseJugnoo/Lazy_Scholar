@@ -42,7 +42,6 @@ Page {
         GroupDataModel {
             id: dataModel
             //sortingKeys: ["ID","Word","Check"]
-        
         },
         
         GroupDataModel{
@@ -55,7 +54,6 @@ Page {
             //query: "select * from Words order by ID DESC"
             query: "SELECT * FROM Words ORDER BY RANDOM() LIMIT 1" //it is "4" for now for show
             onDataLoaded: {
-                
                 dataModel.insertList(data);
             }
         },

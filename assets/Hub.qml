@@ -3,13 +3,15 @@ import bb.cascades 1.0
 Page {
     id: hubPage
     Container {
+        
+        background: back.imagePaint
         ListView {
             id: hubList
             objectName: "hubList"
             layout: GridListLayout {
                 columnCount: 2
                 headerMode: ListHeaderMode.Standard
-                cellAspectRatio: 1
+                cellAspectRatio: 0.93
                 verticalCellSpacing: 20
             }
             dataModel: XmlDataModel {
@@ -68,7 +70,7 @@ Page {
                 }
                 else if(name == "Vocabulary") {
                     newPage = vocabularyDefn.createObject();
-                }else{
+                }else{ //future progress report
                      newPage = emptyDefn.createObject();
                      newPage.label =  chosenItem.title + " Coming Soon"
                 }

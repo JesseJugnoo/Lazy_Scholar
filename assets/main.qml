@@ -6,19 +6,30 @@ import com.paint 1.0
 NavigationPane {
     id: titleNav
     peekEnabled: false
-    Page {
+    Page { 
         Container {
+            
             layout: StackLayout {
             }
-            topPadding: 300
+            
+            background: back.imagePaint
+            topPadding: 200
+            
+            ImageView {
+                imageSource: "images/logo.png" 
+                horizontalAlignment: HorizontalAlignment.Center
+            } //end ImageView (used to display logo)
+            
             Label {
                 id: "title"
-                text: "Learn App"
-                textStyle.fontSizeValue: 50
+                text: "Chinese Edition 1"
+                textStyle.fontSizeValue: 150
                 bottomMargin: 100
                 horizontalAlignment: HorizontalAlignment.Center
             } //end label
-            DropDown {
+            
+            //temp remove dropdown to make the page look clearner
+            /*DropDown {
                 id: "language_choose"
                 onSelectedIndexChanged: {
                     paint.setLanguage(selectedValue);
@@ -41,7 +52,8 @@ NavigationPane {
                 expanded: false
                 layoutProperties: StackLayoutProperties {
                 }
-            } //end dropdown
+            } //end dropdown*/
+            
             Button {
                 id: startButton
                 text: "Start"
@@ -51,7 +63,9 @@ NavigationPane {
                     titleNav.push(newPage);
                 }
             } //end button
-            Button {
+            
+            //temp removed feature until implemented
+            /*Button {
                 id: menuButton
                 text: "Menu"
                 horizontalAlignment: HorizontalAlignment.Center
@@ -60,11 +74,17 @@ NavigationPane {
                     newPage.label = "Menu Coming Soon"
                     titleNav.push(newPage);
                 }
-            } //end button
+            } //end button*/
         }
     } //end page
     attachedObjects: [
-        
+        //to add background image
+	    ImagePaintDefinition {
+	        id: back
+	        repeatPattern: RepeatPattern.XY
+	        imageSource: "asset:///images/tiled_image.amd"
+	    },
+	    
         // Non-visual objects are added to QML as attached objects.
         // The Paint is the object that contains the logics for drawing hand traces
         //
@@ -94,6 +114,7 @@ NavigationPane {
             id: emptyDefn
             source: "Empty.qml"
         }
+        
     ] //end attachedObject
     onPopTransitionEnded: {
         page.destroy();

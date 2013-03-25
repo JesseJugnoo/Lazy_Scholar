@@ -5,6 +5,7 @@ import bb.multimedia 1.0
 Page {
     
     Container {
+        background: back.imagePaint
         layout: DockLayout {
         }
         topMargin: 50.0
@@ -27,6 +28,7 @@ Page {
             
             }
             Container{
+                background: Colour.create ("F8F8F8")
                 layout:DockLayout {                
                 }  
                 

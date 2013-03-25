@@ -1,7 +1,11 @@
 import bb.cascades 1.0
 import bb.data 1.0
 Page {
-    Container {  Label {
+    Container {  
+        background: back.imagePaint
+        
+        
+        Label {
                    text: "What is the English translation?"
                        
                }

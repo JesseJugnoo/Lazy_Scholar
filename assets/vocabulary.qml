@@ -1,9 +1,18 @@
 import bb.cascades 1.0
 import bb.data 1.0
 Page {
+    Container {
+                background: back.imagePaint
+                
                  ListView {
 				        dataModel: dataModel
 				        listItemComponents: [
+	                        ListItemComponent {
+	                            type: "header"
+	                            Header {
+	                                title: "Vocabulary"
+	                            }
+	                        },
 				          ListItemComponent {
 				            type: "item"
 	                        Label {
@@ -36,4 +45,5 @@ Page {
         }
       ]
       onCreationCompleted: { dataSource.load(); }
+  }
 }

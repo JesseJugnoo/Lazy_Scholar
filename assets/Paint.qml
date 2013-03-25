@@ -32,7 +32,6 @@ Page {
                 layout:DockLayout {                
                 }  
                 
-                
                 ImageView {
                     id: textImage
                     image: paint.textImage
@@ -156,10 +155,7 @@ Page {
                     paint.navigateNextCharacter(1);
                 }
             }
-        
         }
-    
-    
-    
-    }
-}
+
+    } //end of Container
+} //end of Page

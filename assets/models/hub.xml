@@ -3,6 +3,6 @@
         <item  title="Draw" picture="images/learn.png" infoText="Practice writing the characters with hand tracing application."/>
         <item  title="Quiz" picture="images/quiz.png" infoText="Test your knowledge."/>
         <item  title="Progress Report" picture="images/report.png" infoText="See the progress you made so far."/>
-        <item  title="Vocabulary" picture="images/vocabulary.png" infoText="Change the Settings."/>
+        <item  title="Dictionary" picture="images/vocabulary.png" infoText="View all the words available for review."/>
      </header>    
 </root>

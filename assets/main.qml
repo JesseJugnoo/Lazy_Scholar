@@ -1,8 +1,6 @@
 // The title page of the app
 import bb.cascades 1.0
 import com.paint 1.0
-import com.quiz 1.0
-
 NavigationPane {
     id: titleNav
     peekEnabled: false
@@ -70,8 +68,8 @@ NavigationPane {
         //
         Paint {
             id: paint
-        },
-        
+        }, 
+              
         //Create the ComponentDefinition that represents the custom
         // component
         ComponentDefinition { //component for the hub

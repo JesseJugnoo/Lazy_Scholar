@@ -1,19 +1,18 @@
 import bb.cascades 1.0
+//import com.quiz 1.0
 Page {
     Button {
-        
-        text: cool
-            onClicked: option2.selected = true
+        id: b
+        text: _quiz.test
+         onTouch:{//function calls are needed to be called in here, because onTouch are function based
+               _quiz.test2()               
+            }
+            //attachedObjects:[ quiz {
+                   //     id: _quiz
+                   // }]
     }
-    attachedObjects: [
-                quiz {
-                      quiz.loadTheQuestions();
-                      var cool = quiz.setCorrect();
-                   }
-                
-            ]
-    //onCreationCompleted: { quiz.loadTheQuestions();
-                           // var cool = quiz.setCorrect(); }
+   
+       
     /*Container {  Label {
                    text: "What is the English translation?"
                        
@@ -76,7 +75,7 @@ Page {
         DataSource {
             id: randomWord
             source: "test"
-            query: "Select * from Random ORDER BY RANDOM() LIMIT 4"
+            query: "Select Guess from Random ORDER BY RANDOM() LIMIT 4"
            
             onDataLoaded: {
                     randomWords.insertList(data);
@@ -85,3 +84,4 @@ Page {
       ]
       onCreationCompleted: { dataSource.load();randomWord.load(); }*/
 }
+

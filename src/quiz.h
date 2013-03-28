@@ -7,50 +7,42 @@
 
 #ifndef QUIZ_H_
 #define QUIZ_H_
-
-#include <bb/cascades/GroupDataModel>
-#include <bb/data/SqlConnection>
-
+#include <bb/data/SqlDataAccess>
+//#include <QMetaType>
+//#include <bb/data/SqlConnection>
+#include <QObject>
 using namespace bb::data;
-
-namespace bb
-{
-    namespace data
-    {
-        class SqlConnection;
-    }
-}
-class quiz {
-
+//using namespace bb::cascades;
+class quiz: public QObject {
+	Q_OBJECT
+	//Q_PROPERTY(QString setCorrect READ setCorrect)
+	//Q_PROPERTY(Notify test2)
+	Q_PROPERTY(QString test READ test NOTIFY valueChanged)
 public:
-	quiz();
-	virtual ~quiz();
+    quiz(QObject *parent = 0);
 
-    /**
-     * The constructor is similar to the GroupDataModel constructor but in addition
-     * it has a connectionName parameter used for setting up a unique SQL connection.
-     *
-     * @param keys Value to set on GroupDataModel::sortingKeys.
-     * @param connectionName The name of the connection to the SQL database.
-     * @param parent The data model owner or @c 0. Optional parameter; defaults to @c 0, if not specified.
-     */
-    quiz(const QStringList &keys, const QString& connectionName,
-            QObject *parent = 0);
+    virtual ~quiz();
 
-    /**
-     * This function loads all items in the database where favorite=true to the model.
-     */
-    void loadFavoriteCities();
+    Q_INVOKABLE
+    void loadTheQuestions();
 
-    /**
-     * This function sets a new continent based on the parameter passed.
-     *
-     * @param continent A QString of the name of the new continent
-     */
-    void setContinent(QString continent);
+	Q_INVOKABLE
+	QString setCorrect();
 
-    QString continent();
+	Q_INVOKABLE
+	QString test();
 
+	Q_INVOKABLE
+	void test2();
+
+	Q_SIGNALS:
+		void valueChanged();
+
+private:
+    	QVariantList questions;
+    	SqlDataAccess *sda;
+    	//GroupDataModel *model;
+    	QString word;
 };
 
 #endif /* QUIZ_H_ */

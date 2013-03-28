@@ -336,4 +336,7 @@
 		<resource resourceType="PROJECT" workspacePath="/Lazy_Scholar"/>
 	</storageModule>
 	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
+	<storageModule moduleId="com.qnx.tools.ide.qde.core.settings">
+		<dependencyChecking mode="ALL"/>
+	</storageModule>
 </cproject>

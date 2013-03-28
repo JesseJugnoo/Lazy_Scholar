@@ -11,7 +11,7 @@ Page {
                 ListItemComponent {
                     type: "header"
                     Header {
-                        title: "Vocabulary"
+                        title: "Dictionary"
                     }
                 },
                 

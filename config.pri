@@ -14,7 +14,8 @@ SOURCES +=  \
     $$BASEDIR/src/main.cpp \
     $$BASEDIR/src/quiz.cpp \
     $$BASEDIR/src/soundmanager.cpp \
-    $$BASEDIR/src/sql/DictionaryDAO.cpp
+    $$BASEDIR/src/sql/DictionaryDAO.cpp \
+    $$BASEDIR/src/ProgressReport.cpp 
 
 HEADERS +=  \
     $$BASEDIR/src/HandRecog.hpp \
@@ -23,7 +24,8 @@ HEADERS +=  \
     $$BASEDIR/src/quiz.h \
     $$BASEDIR/src/soundmanager.h \
     $$BASEDIR/src/sql/DictionaryDAO.hpp \
-    $$BASEDIR/src/sql/DictionaryVO.hpp
+    $$BASEDIR/src/sql/DictionaryVO.hpp \
+    $$BASEDIR/src/ProgressReport.hpp 
 
 CONFIG += precompile_header
 PRECOMPILED_HEADER = $$BASEDIR/precompiled.h

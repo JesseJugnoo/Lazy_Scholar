@@ -17,7 +17,6 @@ using namespace bb::data;
 
 quiz::quiz(QObject* parent):QObject(parent) {
 	sda = new SqlDataAccess(QDir::currentPath() + "/app/native/assets/test");
-	//sda = new SqlDataAccess("test");
 	word = "hello";
 }
 

@@ -2,6 +2,7 @@
 #include "LazyScholar.hpp"
 #include "Paint.hpp"
 #include "quiz.h"
+#include "ProgressReport.hpp"
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
@@ -27,13 +28,15 @@ LazyScholar::LazyScholar(bb::cascades::Application *app) :
 	// set parent to created document to ensure it exists for the whole application lifetime
 	QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
 
-
+	ProgressReport *Progress_Report = new ProgressReport();
 	quiz *question = new quiz(); //the object quiz, to control all of the quiz component stuff
 	question->loadTheQuestions();
 	// Set the context property we want to use from inside the QML file. Functions exposed
 	// via Q_INVOKABLE will be found with the property and the name of the function.
 	qml->setContextProperty("learn", this);
 	qml->setContextProperty("_quiz", question);
+	qml->setContextProperty("Progress_Report", Progress_Report);
+
 
 
 	// create root object for the UI

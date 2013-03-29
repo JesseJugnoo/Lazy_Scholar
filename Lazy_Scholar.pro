@@ -6,3 +6,8 @@ LIBS += -lbb -lbbdata -lOpenAL -lalut -lasound
 
 include(config.pri)
 LIBS += -lbbdata
+
+
+
+
+

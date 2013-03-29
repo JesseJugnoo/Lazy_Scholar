@@ -68,6 +68,9 @@ Page {
                 }
                 else if(name == "Vocabulary") {
                     newPage = vocabularyDefn.createObject();
+                }
+                else if(name == "Progress Report") {
+                    newPage = progressreportDefn.createObject();
                 }else{
                      newPage = emptyDefn.createObject();
                      newPage.label =  chosenItem.title + " Coming Soon"

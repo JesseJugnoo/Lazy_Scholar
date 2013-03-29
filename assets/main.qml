@@ -88,6 +88,10 @@ NavigationPane {
             id: vocabularyDefn
             source: "vocabulary.qml"
         },
+        ComponentDefinition {
+            id: progressreportDefn
+            source: "ProgressReport.qml"
+        },
         ComponentDefinition { //component for an empty page
             id: emptyDefn
             source: "Empty.qml"

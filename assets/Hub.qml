@@ -3,23 +3,25 @@ import bb.cascades 1.0
 Page {
     id: hubPage
     Container {
+        background: back.imagePaint
+        
         ListView {
             id: hubList
             objectName: "hubList"
             layout: GridListLayout {
                 columnCount: 2
                 headerMode: ListHeaderMode.Standard
-                cellAspectRatio: 1
+                cellAspectRatio: 0.93
                 verticalCellSpacing: 20
             }
             dataModel: XmlDataModel {
                 source: "models/hub.xml"
             }
-
+            
             // Add appearance definitions for the list items using the
             // listItemComponents list
             listItemComponents: [
-
+                
                 // The first ListItemComponent defines how "header" items
                 // should appear. These items use a Label.
                 ListItemComponent {
@@ -28,7 +30,7 @@ Page {
                         title: ListItemData.title
                     }
                 },
-
+                
                 // The second ListItemComponent defines how "listItem" items
                 // should appear. These items use a Container that includes a
                 // CheckBox and a Label.
@@ -63,16 +65,16 @@ Page {
                     //learn.resetImage();
                     paint.initDrawPage("1");
                 }
-                else if (name == "Quiz") {
-                    newPage = quizDefn.createObject();
-                }
-                else if(name == "Vocabulary") {
-                    newPage = vocabularyDefn.createObject();
-                }else{
-                     newPage = emptyDefn.createObject();
-                     newPage.label =  chosenItem.title + " Coming Soon"
-                }
-                titleNav.push(newPage);
+				else if (name == "Quiz") {
+				    newPage = quizDefn.createObject();
+				}
+				else if(name == "Dictionary") {
+				    newPage = vocabularyDefn.createObject();
+				}else{ //future progress report
+				    newPage = emptyDefn.createObject();
+				    newPage.label =  chosenItem.title + " Coming Soon"
+				}
+				titleNav.push(newPage);
             }
         }
     }

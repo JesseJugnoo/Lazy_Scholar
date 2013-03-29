@@ -61,6 +61,8 @@
     <initialWindow>
         <systemChrome>none</systemChrome>
         <transparent>false</transparent>
+        <aspectRatio>portrait</aspectRatio>
+    	<autoOrients>false</autoOrients>
     </initialWindow>
     
     <!--  The category where the application appears. Either core.games or core.media. -->
@@ -90,6 +92,9 @@
 
     <asset path="icon.png">icon.png</asset>
     <asset path="assets">assets</asset>
+    
+    <asset path="splashscreen.png">splashscreen.png</asset>
+    <splashscreen>:splashscreen.png</splashscreen>
     
     <!-- Locale support -->
     <asset path="translations" dest="qm">

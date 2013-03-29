@@ -5,10 +5,10 @@ import bb.multimedia 1.0
 Page {
     
     Container {
+        background: back.imagePaint
         layout: DockLayout {
         }
         topMargin: 50.0
-        
         
         Container{
             layout:StackLayout {
@@ -17,19 +17,17 @@ Page {
             verticalAlignment: VerticalAlignment.Center
             horizontalAlignment: HorizontalAlignment.Center
             
-            
             ImageView {
                 id: rating
                 image: paint.rating
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Center
                 bottomMargin: 50
-            
             }
             Container{
+                background: Colour.create ("F8F8F8")
                 layout:DockLayout {                
                 }  
-                
                 
                 ImageView {
                     id: textImage
@@ -62,22 +60,28 @@ Page {
                     horizontalAlignment: HorizontalAlignment.Center
                     onTouch: {
                         //cancel fade animation if it exist
+                        
                         fadeAnim.stop();
                         
-                        //set opacity to 1
-                        paintImage.setOpacity(1);
-                        paintImage.opacity = 1;
+                        
                         
                         var moveX = event.localX;
                         var moveY = event.localY;
                         
                         switch(event.touchType){
                             case TouchType.Down:
+                                
+                                
                                 paint.startDraw(moveX, moveY);
                                 paint.draw(moveX, moveY);
+                                
+                                
                                 break;
                             case TouchType.Move:
+                                
+                                
                                 paint.draw(moveX, moveY);
+                                
                                 
                                 
                                 break;
@@ -86,25 +90,28 @@ Page {
                                 if (isFade){
                                     var rating_src = rating.imageSource;
                                     
-                                    /*
                                     if (rating_src == "assets/images/rating/green.png"){
-                                    player.setSourceUrl("asset:///sounds/ding.wav");
+                                          ding.play();
                                     
                                     }else if(rating_src == "assets/images/rating/yellow.png"){
-                                    player.setSourceUrl("asset:///sounds/average.wav");
+                                         avg.play();
                                     
                                     }else{
-                                    player.setSourceUrl("asset:///sounds/fail-buzzer.wav"); 
+                                          wrong.play(); 
                                     
                                     }
-                                    ding_sound.play();
-                                    */
                                     fadeAnim.play();
                                 }
                                 break;
-                        }
+                        
+                        }//switch end
+                        
+                        
+                        //set opacity to 1
+                        //paintImage.setOpacity(1);
+                        paintImage.opacity = 1;
                     
-                    }
+                    }//on touch end
                     animations: [
                         FadeTransition {
                             id: fadeAnim
@@ -116,7 +123,6 @@ Page {
                     ]
                 }
             }
-            
             
             Label {
                 id: translate
@@ -134,12 +140,10 @@ Page {
             horizontalAlignment: HorizontalAlignment.Left
             verticalAlignment: VerticalAlignment.Bottom
             onTouch: {
-                
                 if (event.touchType == TouchType.Down){
                     paint.navigateNextCharacter(-1);
                 }
             }
-        
         }
         
         ImageView{
@@ -149,15 +153,28 @@ Page {
             verticalAlignment: VerticalAlignment.Bottom
             rotationZ: 180
             onTouch: {
-                
                 if (event.touchType == TouchType.Down){
                     paint.navigateNextCharacter(1);
                 }
             }
-        
         }
     
-    
-    
-    }
-}
+    } //end of Container
+    attachedObjects: [
+        MediaPlayer{
+            id: ding
+            sourceUrl: "asset:///sounds/ding.wav"
+        },
+        MediaPlayer{
+            id: avg
+            sourceUrl: "asset:///sounds/average.wav"
+        },
+        
+        MediaPlayer{
+            id: wrong
+            sourceUrl: "asset:///sounds/BUZZER.wav"
+        }  
+    ]
+
+
+} //end of Page

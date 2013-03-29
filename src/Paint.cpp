@@ -89,9 +89,10 @@ void Paint::setCharacterByIndex(int selectedIndex) {
 
 
 
+
 	QString srcLocation = dict.getImage();
 	QImage srcImage(QString::fromLatin1("app/native/assets/images/%1").arg(srcLocation));
-	srcImage.invertPixels();
+	srcImage.invertPixels( );
 
 	bb::ImageData imageData = bb::ImageData::fromPixels(srcImage.bits(),
 			bb::PixelFormat::RGBA_Premultiplied, srcImage.width(),
@@ -172,6 +173,7 @@ void Paint::paintImage() {
 	bb::ImageData imageData = bb::ImageData::fromPixels(q_image.bits(),
 			bb::PixelFormat::RGBA_Premultiplied, q_image.width(),
 			q_image.height(), q_image.bytesPerLine());
+
 	m_image = bb::cascades::Image(imageData);
 	lastPoint = endPoint;
 	emit imageChanged();
@@ -202,12 +204,21 @@ bool Paint::finishDraw() {
 		//calculate the time rate
 		float time_elapsed = ((float)(clock() - timer)) / CLOCKS_PER_SEC;
 
-		double SEC_PER_STROKE = 1.75; 	//constant of the second it took to draw 1 stroke
+		double SEC_PER_STROKE = 1.0; 	//constant of the second it took to draw 1 stroke
 
 		double time_rate = SEC_PER_STROKE * maxStrokes / time_elapsed;
 
+
+		qDebug() << "Time taken:  " << time_elapsed << " Time rate: " << time_rate;
+
+
+
 		//multiply the accuracy rate and time rate to get the resulting rate
-		result = result * time_rate;
+		if (result > 0.55){
+			result = result * time_rate;
+		}
+
+		qDebug() << "Final result: " << result;
 
 
 		setRating(result);
@@ -232,8 +243,10 @@ void Paint::setRating(double rate) {
 		soundFile = "BUZZER.wav";
 	}
 
+	/*//SoundManager is not used anymore. Use the media player in the cascade side
 	bool result = soundMng->play(soundFile, 2.0f, 2.0f);
 	qDebug() << result;
+	*/
 	emit ratingChanged();
 
 }

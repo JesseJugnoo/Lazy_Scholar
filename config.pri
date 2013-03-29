@@ -12,7 +12,7 @@ SOURCES +=  \
     $$BASEDIR/src/LazyScholar.cpp \
     $$BASEDIR/src/Paint.cpp \
     $$BASEDIR/src/main.cpp \
-    $$BASEDIR/src/quiz.cpp \
+    $$BASEDIR/src/Quiz.cpp \
     $$BASEDIR/src/soundmanager.cpp \
     $$BASEDIR/src/sql/DictionaryDAO.cpp
 
@@ -20,7 +20,7 @@ HEADERS +=  \
     $$BASEDIR/src/HandRecog.hpp \
     $$BASEDIR/src/LazyScholar.hpp \
     $$BASEDIR/src/Paint.hpp \
-    $$BASEDIR/src/quiz.h \
+    $$BASEDIR/src/Quiz.hpp \
     $$BASEDIR/src/soundmanager.h \
     $$BASEDIR/src/sql/DictionaryDAO.hpp \
     $$BASEDIR/src/sql/DictionaryVO.hpp

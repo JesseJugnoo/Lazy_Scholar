@@ -25,7 +25,7 @@ Page {
                 bottomMargin: 50
             }
             Container{
-                background: Colour.create ("F8F8F8")
+                
                 layout:DockLayout {                
                 }  
                 
@@ -62,7 +62,10 @@ Page {
                         //cancel fade animation if it exist
                         
                         fadeAnim.stop();
-                        
+                                                
+                        //set opacity to 1
+                        //paintImage.setOpacity(1);
+                        paintImage.opacity = 1;
                         
                         
                         var moveX = event.localX;
@@ -106,10 +109,7 @@ Page {
                         
                         }//switch end
                         
-                        
-                        //set opacity to 1
-                        //paintImage.setOpacity(1);
-                        paintImage.opacity = 1;
+
                     
                     }//on touch end
                     animations: [

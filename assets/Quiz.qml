@@ -30,7 +30,7 @@ Page {
                    	        imageSource: "asset:///images/quiz.png"
                    	        layoutProperties: AbsoluteLayoutProperties {
                    	                             positionX: 25
-                   	                             positionY: 400    
+                   	                             positionY: 450    
                    	                         }
                    	        text: _quiz.getGuess1
                    	        onClicked:{
@@ -57,7 +57,7 @@ Page {
                                text: _quiz.getGuess2
                                layoutProperties: AbsoluteLayoutProperties {
                    	                             positionX: 380
-                   	                             positionY: 400    
+                   	                             positionY: 450    
                    	                         }
                                onClicked:{
                                            if(b.text == _quiz.getCorrect){

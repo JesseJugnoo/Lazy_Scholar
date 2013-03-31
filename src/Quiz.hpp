@@ -17,9 +17,9 @@ class Quiz: public QObject {
 
 	//These are the properties that are given to QML to let QML know how to "kind" of use it
 	Q_PROPERTY(QString getGuess1 READ getGuess1 NOTIFY valueChanged)
-	Q_PROPERTY(QString getGuess2 READ getGuess2 NOTIFY valueChanged)
-	Q_PROPERTY(QString getGuess3 READ getGuess3 NOTIFY valueChanged)
-	Q_PROPERTY(QString getGuess4 READ getGuess4 NOTIFY valueChanged)
+	Q_PROPERTY(QString getGuess2 READ getGuess2 NOTIFY valueChanged )
+	Q_PROPERTY(QString getGuess3 READ getGuess3 NOTIFY valueChanged )
+	Q_PROPERTY(QString getGuess4 READ getGuess4 NOTIFY valueChanged )
 	Q_PROPERTY(QString getCorrect READ getCorrect NOTIFY valueChanged)
 	Q_PROPERTY(QString getToBeAnswered READ getToBeAnswered NOTIFY valueChanged)
 

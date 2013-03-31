@@ -1,56 +1,173 @@
 import bb.cascades 1.0
 
 Page {
+    
     Container{
-       Label{
-           text: _quiz.getToBeAnswered
+        background: back.imagePaint
+       // layout: StackLayout{}
+       Container{
+           layout: AbsoluteLayout{}
+           
+           Label {
+               text: _quiz.getToBeAnswered
+           //text: "example"
+           layoutProperties: AbsoluteLayoutProperties {
+                              	 positionX: 328
+                              	 positionY: 50    
+                        }
+           textStyle {
+                           base: SystemDefaults.TextStyles.BigText
+                           color: Color.Black
+                       }
+           }
        }
-	    Button {
-	        id: a
-	        text: _quiz.getGuess1
-	        onTouch:{
-	                    if(a.text == _quiz.getCorrect){
-	                    a.text = "Correct";
-	                    _quiz.loadTheQuestions();
-	                    a.text = _quiz.getGuess1;
-	                    }               
-	               }
-	    }
-    Button {
-            id: b
-            text: _quiz.getGuess2
-            onTouch:{
-                        if(b.text == _quiz.getCorrect){
-                        b.text = "Correct";
-                        _quiz.loadTheQuestions();
-                        b.text = _quiz.getGuess2;
-                        }               
-                   }
-        }
-        Button {
-                id: c
-                text: _quiz.getGuess3
-                onTouch:{
-                        if(c.text == _quiz.getCorrect){
-                            c.text = "Correct";
-                            _quiz.loadTheQuestions();
-                            c.text = _quiz.getGuess3;
-                        }               
-                       }
-                }
-        Button {
-                id: d
-                text: _quiz.getGuess4
-                onTouch:{
-                        if(d.text == _quiz.getCorrect){
-                            d.text = "Correct";
-                            _quiz.loadTheQuestions();
-                            d.text = _quiz.getGuess4;
-                        }               
-                       }
-                }
-                        
+       
+       Container {
+                   layout: AbsoluteLayout{}
+                   bottomPadding:30
+            Button {
+                   	        id: a
+                   	        imageSource: "asset:///images/quiz.png"
+                   	        layoutProperties: AbsoluteLayoutProperties {
+                   	                             positionX: 25
+                   	                             positionY: 400    
+                   	                         }
+                   	        text: _quiz.getGuess1
+                   	        onClicked:{
+                   	                    if(a.text == _quiz.getCorrect){
+                   	                     itsCorrect.visible = true
+                   	                      correctPlay.play()
+                   	                     //itsCorrect.visible = false
+                   	                    _quiz.loadTheQuestions();
+                   	                    a.text = _quiz.getGuess1;
+                   	                    b.text = _quiz.getGuess2;
+                   	                    c.text = _quiz.getGuess3;
+                   	                    d.text = _quiz.getGuess4;
+                   	                    }   
+                   	                    else {
+                   	                        itsIncorrect.visible = true
+                   	                         incorrectPlay.play();
+                   	                        
+                   	                    }            
+                   	               }
+                   	    }
+                       Button {
+                               id: b
+                               imageSource: "asset:///images/quiz.png"
+                               text: _quiz.getGuess2
+                               layoutProperties: AbsoluteLayoutProperties {
+                   	                             positionX: 380
+                   	                             positionY: 400    
+                   	                         }
+                               onClicked:{
+                                           if(b.text == _quiz.getCorrect){
+	                                           itsCorrect.visible = true
+	                                           correctPlay.play()
+	                                           _quiz.loadTheQuestions();
+	                                             a.text = _quiz.getGuess1;
+	                   	                         b.text = _quiz.getGuess2;
+	                   	                         c.text = _quiz.getGuess3;
+	                   	                         d.text = _quiz.getGuess4;
+                                           }
+                                            else {
+                                               itsIncorrect.visible = true
+                                               incorrectPlay.play();
+                                                              	                        
+                                           }               
+                                      }
+                           }
+                           
+                           Button {
+                                   id: c
+                                   imageSource: "asset:///images/quiz.png"
+                                   text: _quiz.getGuess3
+                                    layoutProperties: AbsoluteLayoutProperties {
+                                                      	 positionX: 25
+                                                      	 positionY: 300    
+                                                    }
+                                   onClicked:{
+                                           if(c.text == _quiz.getCorrect){
+                                               itsCorrect.visible = true
+                                               correctPlay.play();
+                                               _quiz.loadTheQuestions();
+                                                 a.text = _quiz.getGuess1;
+                   	                              b.text = _quiz.getGuess2;
+                   	                              c.text = _quiz.getGuess3;
+                   	                               d.text = _quiz.getGuess4;
+                                           }
+                                            else {
+                                               itsIncorrect.visible = true;
+                                               incorrectPlay.play();
+                                               
+                                           }               
+                                          }
+                                   }
+                           Button {
+                                   id: d
+                                   imageSource: "asset:///images/quiz.png"
+                                   text: _quiz.getGuess4
+                                    layoutProperties: AbsoluteLayoutProperties {
+                                                      	 positionX: 380
+                                                      	 positionY: 300    
+                                                    }
+                                   onClicked:{
+                                           if(d.text == _quiz.getCorrect){
+                                              itsCorrect.visible = true
+                                              correctPlay.play();
+                                               _quiz.loadTheQuestions();
+                                                 a.text = _quiz.getGuess1;
+                   	                              b.text = _quiz.getGuess2;
+                   	                               c.text = _quiz.getGuess3;
+                   	                                d.text = _quiz.getGuess4;
+                                           } 
+                                            else {
+                                               itsIncorrect.visible = true 
+                                              incorrectPlay.play();
+                                                                                          
+                                          }              
+                                          }
+                                   }
+                          ImageView {
+                              id: itsIncorrect
+                              imageSource: "asset:///images/wrong.png"
+                                layoutProperties: AbsoluteLayoutProperties {
+                                         positionX: 269
+                                         positionY: 650  
+                                     }
+                              visible: false
+                              animations: [
+                                      FadeTransition {
+                                          id: incorrectPlay
+                                          duration: 1000 //5 seconds
+                                          fromOpacity: 1.0
+                                          toOpacity: 0
+                                          }
+                                  ]
+                          }
+                          ImageView {
+                                      id: itsCorrect    
+                                     imageSource: "asset:///images/correct.png"
+                                       layoutProperties: AbsoluteLayoutProperties {
+                                                positionX: 269
+                                                positionY: 650   
+                                            }
+                                     visible: false
+                                     animations: [
+                                                   FadeTransition {
+                                                       id: correctPlay
+                                                       duration: 1000 //5 seconds
+                                                       fromOpacity: 1.0
+                                                       toOpacity: 0
+                                                       }
+                                               ]
+                         }
+                                                                        
+                                                            
+           
+               }
+                                           
 }
+
        
 }
 

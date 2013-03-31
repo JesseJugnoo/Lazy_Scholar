@@ -9,10 +9,11 @@
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/AbstractPane>
-
+#include <algorithm>
+#include <vector>
 using namespace bb::cascades;
 using namespace bb::data;
-
+using namespace std;
 Quiz::Quiz(QObject* parent):QObject(parent) {
 	sda = new SqlDataAccess(QDir::currentPath() + "/app/native/assets/test");
 }
@@ -47,60 +48,56 @@ void Quiz::loadTheQuestions() { //execute the sql statement and use it
 	mapCorrect = correctSQL[0].toMap(); //this is to get the chinese translation to be guessed
 	toBeAnswered = mapCorrect["Word"].toString();
 
-	int randNum = rand()%4; //create a random number for 0-3
+	//int randNum = rand()%4; //create a random number for 0-3
 	 QVariantMap mapGuesses; //transform the Qvariant to a map, so that we can access it
-	 bool choice[]  ={false, false, false, false}; //this is used to so that we can randomly select spots for the guesses, so its not always the same
-	 bool choseOne = false;
-	 for(int i =0; i < guessesSQL.size(); i++){ //we go through the
-		 mapGuesses = guessesSQL[i].toMap(); //transform the QVariant to a map, so that we can access it
+	 QString theChoices[] = {"", "","",""};
+vector<QString> theWords;
+	 mapGuesses = guessesSQL[0].toMap();
+	 //theGuesses[0] = mapGuesses["Guess"].toString();
+	 theWords.push_back(mapGuesses["Guess"].toString());
 
-		 while(!choseOne){ //Must choose a value to assign to
-			 randNum = rand() %4;
-			 switch(randNum){
-			case 0:
-				if(!choice[0]){guess1 = mapGuesses["Guess"].toString();choice[0] = true; choseOne = true;}
-				break;
-			case 1:
-				if(!choice[1]){guess2 = mapGuesses["Guess"].toString();choice[1] = true;choseOne = true;}
-				break;
-			case 2:
-				if(!choice[2]){guess3 = mapGuesses["Guess"].toString();choice[2] = true;choseOne = true;}
-				break;
-			default:
-				if(!choice[3]){guess4 = mapGuesses["Guess"].toString();choice[3] = true;choseOne = true;}
-				break;
-			}
+	 mapGuesses = guessesSQL[1].toMap();
+	// theGuesses[1] = mapGuesses["Guess"].toString();
+	 theWords.push_back(mapGuesses["Guess"].toString());
 
+	 mapGuesses = guessesSQL[2].toMap();
+	// theGuesses[2] = mapGuesses["Guess"].toString();
+	 theWords.push_back(mapGuesses["Guess"].toString());
 
-			 qDebug() <<"this is rand: "<< randNum << endl;
+	 //theGuesses[3] = correct;
+	 theWords.push_back(correct);
+
+	 int randNum = rand() %4;
+	 int counter = 0;
+	 vector<int> v; //to check if we used that element
+
+	 while(counter <4){
+
+		 if(find(v.begin(), v.end(), randNum) != v.end()){
+			 //Element is in vector
+			 //choose another random
+			 randNum = rand()%4;
 		 }
+		 else {
+			 theChoices[randNum] = theWords.back();
+			 theWords.pop_back();
+			 v.push_back(randNum);
+			 randNum = rand()%4;
 
-		 choseOne = false;
-	 }
-
-	 for(int i =0; i < 4; i++){
-	 				 qDebug() << choice[i]<<endl;
-	 			 }
-
-	 for(int i =0; i < 4; i++) { //make sure to choose the "guess" variable with the correct choice
-		 if(!choice[i]){
-			  switch(i){
-			case 0:
-				guess1 = correct;
-				break;
-			case 1:
-				guess2 = correct;
-				break;
-			case 2:
-				guess3 = correct;
-				break;
-			default:
-				guess4 = correct;
-				break;
-			}
-			 break;
+			 counter++;
 		 }
 	 }
+
+
+	 guess1 = theChoices[0];
+
+	 guess2 = theChoices[1];
+
+	 guess3 = theChoices[2];
+
+	 guess4 = theChoices[3];
+
+
 	 emit valueChanged();
 }
 

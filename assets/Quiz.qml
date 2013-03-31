@@ -184,11 +184,8 @@ Page {
             MediaPlayer{
                 id: youAreWrong
                 sourceUrl: "asset:///sounds/BUZZER.wav"
-            }
-            
-            
+            }          
         ]
-
 
 }
 

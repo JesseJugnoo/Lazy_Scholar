@@ -1,6 +1,7 @@
 import bb.cascades 1.0
 
 Page {
+    
     Container {
         background: back.imagePaint
         Label{
@@ -10,7 +11,7 @@ Page {
 			            verticalAlignment: VerticalAlignment.Center
 			            textStyle {
 			                base: SystemDefaults.TextStyles.BigText
-			                color: Color.Black
+			                color: Color.Green
 			            }
             }
             Label{
@@ -20,10 +21,32 @@ Page {
 	                verticalAlignment: VerticalAlignment.Center
 	                textStyle {
 	                    base: SystemDefaults.TextStyles.BigText
-	                    color: Color.Black
+	                    color: Color.Red
 	                }
             }
+            
+            Label{
+                
+                text: "Try Again"
+                horizontalAlignment: HorizontalAlignment.Center
+                verticalAlignment: VerticalAlignment.Center
+                textStyle {
+                    base: SystemDefaults.TextStyles.BigText
+                    color: Color.Black
+                }
+            }
            
+    }
+    paneProperties: NavigationPaneProperties {
+        backButton: ActionItem {
+            onTriggered: {
+                _quiz.loadToDatabase();
+                _quiz.reset();
+                var page = hubDefn.createObject();
+                titleNav.pop();
+                   
+            }
+        }
     }
     
 }

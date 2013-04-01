@@ -1,7 +1,7 @@
 import bb.cascades 1.0
 import bb.multimedia 1.0
 Page {
-    
+    id: quizPage
     Container{
         background: back.imagePaint
         // layout: StackLayout{}
@@ -45,6 +45,7 @@ Page {
                          _quiz.loadTheQuestions();
                         if(_quiz.getTotal == 11 ){
                             var next = resultDefn.createObject();
+                            titleNav.pop();
                             titleNav.push(next);
                         }
                         _quiz.changeHere(false);
@@ -86,6 +87,7 @@ Page {
                         _quiz.loadTheQuestions();
                         if(_quiz.getTotal == 11 ){
                             var next = resultDefn.createObject();
+                            titleNav.pop();
                             titleNav.push(next);
                         }
                         _quiz.changeHere(false);
@@ -127,6 +129,7 @@ Page {
                         _quiz.loadTheQuestions();
                          if(_quiz.getTotal == 11 ){
                              var next = resultDefn.createObject();
+                             titleNav.pop();
                              titleNav.push(next);
                         }
                         _quiz.changeHere(false);
@@ -168,6 +171,7 @@ Page {
                         
                         if(_quiz.getTotal == 11 ){
                             var next = resultDefn.createObject();
+                            titleNav.pop();
                             titleNav.push(next);
                         }
                         _quiz.changeHere(false);

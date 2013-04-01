@@ -15,7 +15,7 @@ using namespace bb::cascades;
 using namespace bb::data;
 using namespace std;
 Quiz::Quiz(QObject* parent):QObject(parent) {
-	sda = new SqlDataAccess(QDir::currentPath() + "/app/native/assets/test");
+	sda = new SqlDataAccess(QDir::currentPath() + "/app/native/assets/lazy_scholar.sqlite");
 	numQuestions = 0;
 	numCorrect = 0;
 	numWrong = 0;
@@ -104,11 +104,6 @@ vector<QString> theWords;
 
 	 numQuestions++; //everytime we load a new question, add to the total number of questions
 
-	 qDebug() << "numCorrect: " << 	numCorrect << endl;
-	 qDebug() << "numWrong: " <<	numWrong << endl;
-	 qDebug() << "numQuestions: " <<	numQuestions << endl;
-
-
 	 emit valueChanged();
 }
 
@@ -167,7 +162,7 @@ int Quiz::getIncorrectCounter(){
 }
 void Quiz::reset(){
 
-		numQuestions = 0;
+		numQuestions = 1;
 		numCorrect = 0;
 		numWrong = 0;
 		here1 = false;
@@ -175,12 +170,18 @@ void Quiz::reset(){
 }
 void Quiz::loadToDatabase(){
 
+	QVariant tmp(numCorrect);
+	QVariant tmp2(numWrong);
+		QString numberCorrect = tmp.toString();
+		QString numberWrong = tmp2.toString();
 
-		QString sql = "INSERT INTO Quiz (Correct, Wrong, Level) VALUES (numCorrect, numWrong, 1)";
+		QString sql = "INSERT INTO Quiz (Correct, Wrong, Level) VALUES (" + numberCorrect +", " + numberWrong + " , 1);";
 		QVariant result = sda->execute(sql);
 		if (sda->hasError()) {
 				qDebug() << sda->error() << endl;
 			}
+		qDebug() << sql <<endl;
+		emit valueChanged();
 }
 void Quiz::changeHere(bool a){
 	here1 = a;

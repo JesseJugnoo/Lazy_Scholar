@@ -25,6 +25,9 @@ class Quiz: public QObject {
 	Q_PROPERTY(int getCorrectCounter READ getCorrectCounter NOTIFY valueChanged)
 	Q_PROPERTY(int getIncorrectCounter READ getIncorrectCounter NOTIFY valueChanged)
 
+	Q_PROPERTY(bool getHere READ getHere WRITE changeHere NOTIFY valueChanged)
+
+
 	Q_PROPERTY(QString getToBeAnswered READ getToBeAnswered NOTIFY valueChanged)
 
 public:
@@ -81,6 +84,14 @@ public:
 	//This is reset the variables to start state!!!!
 		Q_INVOKABLE
 		void reset();
+		Q_INVOKABLE
+		void changeHere(bool a);
+		Q_INVOKABLE
+		bool getHere();
+
+		Q_INVOKABLE
+		void loadToDatabase();
+
 
 	Q_SIGNALS:
 		void valueChanged();
@@ -96,6 +107,8 @@ private:
     	QString guess2;
     	QString guess3;
     	QString guess4;
+
+    	bool here1;
 
     	int numQuestions;// keep track of how many questions were asked, were just making the user do only 10 questions.
     	int numCorrect; //keep track of how many questions were correct

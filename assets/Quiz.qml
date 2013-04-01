@@ -38,12 +38,16 @@ Page {
                         itsCorrect.visible = true
                         youAreRight.play()
                         correctPlay.play()
-                        _quiz.correctCounter();
+                        
+                        if(!_quiz.getHere) {
+                            _quiz.correctCounter();
+                        }
                          _quiz.loadTheQuestions();
                         if(_quiz.getTotal == 11 ){
                             var next = resultDefn.createObject();
                             titleNav.push(next);
                         }
+                        _quiz.changeHere(false);
                         a.text = _quiz.getGuess1;
                         b.text = _quiz.getGuess2;
                         c.text = _quiz.getGuess3;
@@ -53,8 +57,11 @@ Page {
                         itsIncorrect.visible = true
                         youAreWrong.play();
                         incorrectPlay.play();
+                        
+                        if(!_quiz.getHere) {
                         _quiz.incorrectCounter();
-
+                        _quiz.changeHere(true);
+                        }
                     }            
                 }
             }
@@ -71,12 +78,17 @@ Page {
                         itsCorrect.visible = true
                        youAreRight.play() //play sounds
                         correctPlay.play()
-                        _quiz.correctCounter();
+                        
+                        if(!_quiz.getHere) {
+                            _quiz.correctCounter();
+                        }
+                        
                         _quiz.loadTheQuestions();
                         if(_quiz.getTotal == 11 ){
                             var next = resultDefn.createObject();
                             titleNav.push(next);
                         }
+                        _quiz.changeHere(false);
                         a.text = _quiz.getGuess1;
                         b.text = _quiz.getGuess2;
                         c.text = _quiz.getGuess3;
@@ -86,8 +98,10 @@ Page {
                         itsIncorrect.visible = true
                         youAreWrong.play();
                         incorrectPlay.play();
-                        _quiz.incorrectCounter();
-
+                        if(!_quiz.getHere){
+                            _quiz.incorrectCounter();
+                            _quiz.changeHere(true);
+                        }
                     }               
                 }
             }
@@ -105,12 +119,17 @@ Page {
                         itsCorrect.visible = true
                         youAreRight.play();
                         correctPlay.play();
-                        _quiz.correctCounter();
+                       
+                        if(!_quiz.getHere) {
+                            _quiz.correctCounter();
+                        }
+                        
                         _quiz.loadTheQuestions();
                          if(_quiz.getTotal == 11 ){
                              var next = resultDefn.createObject();
                              titleNav.push(next);
                         }
+                        _quiz.changeHere(false);
                         a.text = _quiz.getGuess1;
                         b.text = _quiz.getGuess2;
                         c.text = _quiz.getGuess3;
@@ -120,8 +139,10 @@ Page {
                         itsIncorrect.visible = true;
                         youAreWrong.play();
                         incorrectPlay.play();
-                        _quiz.incorrectCounter();
-
+                        if(!_quiz.getHere){
+                            _quiz.incorrectCounter();
+                            _quiz.changeHere(true);
+                        }
                     }               
                 }
             }
@@ -138,14 +159,18 @@ Page {
                         itsCorrect.visible = true
                         youAreRight.play();
                         correctPlay.play();
-                        _quiz.correctCounter();
+                        
+                       if(!_quiz.getHere) {
+                            _quiz.correctCounter();
+                        }
+                        
                         _quiz.loadTheQuestions();
                         
                         if(_quiz.getTotal == 11 ){
                             var next = resultDefn.createObject();
                             titleNav.push(next);
                         }
-                        
+                        _quiz.changeHere(false);
                         a.text = _quiz.getGuess1;
                         b.text = _quiz.getGuess2;
                         c.text = _quiz.getGuess3;
@@ -155,8 +180,10 @@ Page {
                         itsIncorrect.visible = true 
                         youAreWrong.play();
                         incorrectPlay.play();
-                        _quiz.incorrectCounter();
-
+                       if(!_quiz.getHere){
+                            _quiz.incorrectCounter();
+                            _quiz.changeHere(true);
+                        }
                     }              
                 }
             }

@@ -4,10 +4,26 @@ Page {
     Container {
         background: back.imagePaint
         Label{
-            text: _quiz.getCorrectCounter
+            
+			            text:"Correct: " + _quiz.getCorrectCounter
+			            horizontalAlignment: HorizontalAlignment.Center
+			            verticalAlignment: VerticalAlignment.Center
+			            textStyle {
+			                base: SystemDefaults.TextStyles.BigText
+			                color: Color.Black
+			            }
             }
             Label{
-                text: _quiz.getIncorrectCounter
+                
+	                text: "Incorrect: " +_quiz.getIncorrectCounter
+	                horizontalAlignment: HorizontalAlignment.Center
+	                verticalAlignment: VerticalAlignment.Center
+	                textStyle {
+	                    base: SystemDefaults.TextStyles.BigText
+	                    color: Color.Black
+	                }
             }
+           
     }
+    
 }

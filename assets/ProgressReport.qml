@@ -1,6 +1,6 @@
 import bb.cascades 1.0
 
-/*Page {
+Page {
     Button {
         id: totalquiztaken
         text: Progress_Report.getTotal_Quiz_Taken
@@ -9,7 +9,7 @@ import bb.cascades 1.0
             }
 
     }
-}*/
+}
 
 /*+import bb.cascades 1.0
 +import bb.data 1.0

@@ -19,7 +19,7 @@ Quiz::Quiz(QObject* parent):QObject(parent) {
 	numQuestions = 0;
 	numCorrect = 0;
 	numWrong = 0;
-
+here1 = false;
 
 }
 
@@ -170,8 +170,25 @@ void Quiz::reset(){
 		numQuestions = 0;
 		numCorrect = 0;
 		numWrong = 0;
+		here1 = false;
 		emit valueChanged();
+}
+void Quiz::loadToDatabase(){
 
+
+		QString sql = "INSERT INTO Quiz (Correct, Wrong, Level) VALUES (numCorrect, numWrong, 1)";
+		QVariant result = sda->execute(sql);
+		if (sda->hasError()) {
+				qDebug() << sda->error() << endl;
+			}
+}
+void Quiz::changeHere(bool a){
+	here1 = a;
+	emit valueChanged();
+}
+
+bool Quiz::getHere(){
+	return here1;
 }
 
 

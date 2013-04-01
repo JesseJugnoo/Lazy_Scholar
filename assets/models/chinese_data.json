@@ -4,5 +4,14 @@
 {"text":"Mountain - shān","label":"Mountain", "strokes":3,"outline":"assets/images/chinese_outline/mountain.png", "image":"assets/images/chinese/mountain.png"},
 {"text":"Two - èr","label":"Two", "strokes":2,"outline":"assets/images/chinese_outline/two.png", "image":"assets/images/chinese/two.png"},
 {"text":"Three - sān","label":"Three", "strokes":3,"outline":"assets/images/chinese_outline/three.png", "image":"assets/images/chinese/three.png"},
-{"text":"Sky - tiān","label":"Sky", "strokes":4,"outline":"assets/images/chinese_outline/sky.png", "image":"assets/images/chinese/sky.png"}
+{"text":"Sky - tiān","label":"Sky", "strokes":4,"outline":"assets/images/chinese_outline/sky.png", "image":"assets/images/chinese/sky.png"},
+{"text":"Big - dà","label":"Big", "strokes":2,"outline":"assets/images/chinese_outline/big.png", "image":"assets/images/chinese/big.png"},
+{"text":"Small - xiǎo","label":"Small", "strokes":3,"outline":"assets/images/chinese_outline/small.png", "image":"assets/images/chinese/small.png"},
+{"text":"Cloud - yún","label":"Cloud", "strokes":5,"outline":"assets/images/chinese_outline/cloud.png", "image":"assets/images/chinese/cloud.png"}
+{"text":"Female - nǚ","label":"Female", "strokes":3,"outline":"assets/images/chinese_outline/female.png", "image":"assets/images/chinese/female.png"},
+{"text":"King - wáng","label":"King", "strokes":4,"outline":"assets/images/chinese_outline/king.png", "image":"assets/images/chinese/king.png"},
+{"text":"Yuan - yuán","label":"Yuan", "strokes":4,"outline":"assets/images/chinese_outline/money.png", "image":"assets/images/chinese/money.png"},
+{"text":"Person - rén","label":"Person", "strokes":2,"outline":"assets/images/chinese_outline/person.png", "image":"assets/images/chinese/person.png"},
+{"text":"Wood - mù","label":"Wood", "strokes":4,"outline":"assets/images/chinese_outline/wood.png", "image":"assets/images/chinese/wood.png"},
+{"text":"Water - shuǐ","label":"Water", "strokes":4,"outline":"assets/images/chinese_outline/water.png", "image":"assets/images/chinese/water.png"}
 ]

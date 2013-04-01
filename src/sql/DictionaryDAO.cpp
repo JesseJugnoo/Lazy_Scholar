@@ -103,8 +103,7 @@ vector<DictionaryVO> DictionaryDAO::getDictionaryAllVO(){
 
 vector<DictionaryVO> DictionaryDAO::getDictionaryByLanguageAndLevelVO(QString language, QString level){
 
-	extra_sql = " WHERE language='"+language+ "' AND level="+level + " AND image IS NOT NULL";
-
+	extra_sql = " WHERE language='"+language+ "' AND image IS NOT NULL" /* + "' AND level="+level */ ;
 	vector<DictionaryVO> result = getDictionaryAllVO();
 
 	return result;

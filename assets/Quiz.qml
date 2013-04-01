@@ -38,8 +38,12 @@ Page {
                         itsCorrect.visible = true
                         youAreRight.play()
                         correctPlay.play()
-                        //itsCorrect.visible = false
-                        _quiz.loadTheQuestions();
+                        _quiz.correctCounter();
+                         _quiz.loadTheQuestions();
+                        if(_quiz.getTotal == 11 ){
+                            var next = resultDefn.createObject();
+                            titleNav.push(next);
+                        }
                         a.text = _quiz.getGuess1;
                         b.text = _quiz.getGuess2;
                         c.text = _quiz.getGuess3;
@@ -49,7 +53,7 @@ Page {
                         itsIncorrect.visible = true
                         youAreWrong.play();
                         incorrectPlay.play();
-                        
+                        _quiz.incorrectCounter();
 
                     }            
                 }
@@ -67,7 +71,12 @@ Page {
                         itsCorrect.visible = true
                        youAreRight.play() //play sounds
                         correctPlay.play()
+                        _quiz.correctCounter();
                         _quiz.loadTheQuestions();
+                        if(_quiz.getTotal == 11 ){
+                            var next = resultDefn.createObject();
+                            titleNav.push(next);
+                        }
                         a.text = _quiz.getGuess1;
                         b.text = _quiz.getGuess2;
                         c.text = _quiz.getGuess3;
@@ -77,6 +86,7 @@ Page {
                         itsIncorrect.visible = true
                         youAreWrong.play();
                         incorrectPlay.play();
+                        _quiz.incorrectCounter();
 
                     }               
                 }
@@ -95,7 +105,12 @@ Page {
                         itsCorrect.visible = true
                         youAreRight.play();
                         correctPlay.play();
+                        _quiz.correctCounter();
                         _quiz.loadTheQuestions();
+                         if(_quiz.getTotal == 11 ){
+                             var next = resultDefn.createObject();
+                             titleNav.push(next);
+                        }
                         a.text = _quiz.getGuess1;
                         b.text = _quiz.getGuess2;
                         c.text = _quiz.getGuess3;
@@ -105,6 +120,7 @@ Page {
                         itsIncorrect.visible = true;
                         youAreWrong.play();
                         incorrectPlay.play();
+                        _quiz.incorrectCounter();
 
                     }               
                 }
@@ -122,7 +138,14 @@ Page {
                         itsCorrect.visible = true
                         youAreRight.play();
                         correctPlay.play();
+                        _quiz.correctCounter();
                         _quiz.loadTheQuestions();
+                        
+                        if(_quiz.getTotal == 11 ){
+                            var next = resultDefn.createObject();
+                            titleNav.push(next);
+                        }
+                        
                         a.text = _quiz.getGuess1;
                         b.text = _quiz.getGuess2;
                         c.text = _quiz.getGuess3;
@@ -132,6 +155,7 @@ Page {
                         itsIncorrect.visible = true 
                         youAreWrong.play();
                         incorrectPlay.play();
+                        _quiz.incorrectCounter();
 
                     }              
                 }

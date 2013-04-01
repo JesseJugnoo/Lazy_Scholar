@@ -21,6 +21,10 @@ class Quiz: public QObject {
 	Q_PROPERTY(QString getGuess3 READ getGuess3 NOTIFY valueChanged )
 	Q_PROPERTY(QString getGuess4 READ getGuess4 NOTIFY valueChanged )
 	Q_PROPERTY(QString getCorrect READ getCorrect NOTIFY valueChanged)
+	Q_PROPERTY(int getTotal READ getTotal NOTIFY valueChanged)
+	Q_PROPERTY(int getCorrectCounter READ getCorrectCounter NOTIFY valueChanged)
+	Q_PROPERTY(int getIncorrectCounter READ getIncorrectCounter NOTIFY valueChanged)
+
 	Q_PROPERTY(QString getToBeAnswered READ getToBeAnswered NOTIFY valueChanged)
 
 public:
@@ -52,9 +56,31 @@ public:
 	Q_INVOKABLE
 		QString getGuess4();
 
-	//This is to return guess4's assigned value
+	//This is to return the question to be answered assigned value
 		Q_INVOKABLE
 		QString getToBeAnswered();
+
+	//This is to increase correctCounter assigned value
+		Q_INVOKABLE
+		void correctCounter();
+	//This is to increase incorrectCounter assigned value
+		Q_INVOKABLE
+		void incorrectCounter();
+
+	//This is to return the total number of questions
+		Q_INVOKABLE
+		int getCorrectCounter();
+
+	//This is to return the total number of questions
+		Q_INVOKABLE
+		int getIncorrectCounter();
+
+	//This is to return the total number of questions
+		Q_INVOKABLE
+		int getTotal();
+	//This is reset the variables to start state!!!!
+		Q_INVOKABLE
+		void reset();
 
 	Q_SIGNALS:
 		void valueChanged();
@@ -71,7 +97,10 @@ private:
     	QString guess3;
     	QString guess4;
 
-    	//This is to keep track of the correct wor, it will always be updated when we load new questions
+    	int numQuestions;// keep track of how many questions were asked, were just making the user do only 10 questions.
+    	int numCorrect; //keep track of how many questions were correct
+    	int numWrong; //keep track of how many questions were wrong
+    	//This is to keep track of the correct word, it will always be updated when we load new questions
     	QString correct;
 
     	//The word/character to be translated

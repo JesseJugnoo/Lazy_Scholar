@@ -68,7 +68,7 @@ Page {
                 else if (name == "Quiz") {
                     newPage = quizDefn.createObject();
                 }
-                else if(name == "Vocabulary") {
+                else if(name == "Dictionary") {
                     newPage = vocabularyDefn.createObject();
                 }
                 else if(name == "Progress Report") {

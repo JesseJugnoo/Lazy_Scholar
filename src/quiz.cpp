@@ -16,6 +16,11 @@ using namespace bb::data;
 using namespace std;
 Quiz::Quiz(QObject* parent):QObject(parent) {
 	sda = new SqlDataAccess(QDir::currentPath() + "/app/native/assets/test");
+	numQuestions = 0;
+	numCorrect = 0;
+	numWrong = 0;
+
+
 }
 
 Quiz::~Quiz() {
@@ -97,6 +102,12 @@ vector<QString> theWords;
 
 	 guess4 = theChoices[3];
 
+	 numQuestions++; //everytime we load a new question, add to the total number of questions
+
+	 qDebug() << "numCorrect: " << 	numCorrect << endl;
+	 qDebug() << "numWrong: " <<	numWrong << endl;
+	 qDebug() << "numQuestions: " <<	numQuestions << endl;
+
 
 	 emit valueChanged();
 }
@@ -127,6 +138,39 @@ QString Quiz::getGuess4(){
 QString Quiz::getToBeAnswered(){
 
 	return toBeAnswered;
+
+}
+int Quiz::getTotal(){
+
+	return numQuestions;
+
+}
+void Quiz::correctCounter(){
+	emit valueChanged();
+	numCorrect++;
+
+}
+void Quiz::incorrectCounter(){
+	emit valueChanged();
+	numWrong++;
+
+}
+int Quiz::getCorrectCounter(){
+
+	return numCorrect;
+
+}
+int Quiz::getIncorrectCounter(){
+
+	return numWrong;
+
+}
+void Quiz::reset(){
+
+		numQuestions = 0;
+		numCorrect = 0;
+		numWrong = 0;
+		emit valueChanged();
 
 }
 

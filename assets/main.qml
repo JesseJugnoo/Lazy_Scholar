@@ -113,6 +113,10 @@ NavigationPane {
             source: "ProgressReport.qml"
         },
         ComponentDefinition { //component for an empty page
+            id: resultDefn
+            source: "Result.qml"
+        },
+        ComponentDefinition { //component for an empty page
             id: emptyDefn
             source: "Empty.qml"
         }

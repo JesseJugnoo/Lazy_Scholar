@@ -8,7 +8,7 @@ using namespace bb::data;
 class ProgressReport: public QObject {
 	Q_OBJECT
 
-	Q_PROPERTY(QString getTotal_Quiz_Taken READ getTotal_Quiz_Taken NOTIFY valueChanged)
+	//Q_PROPERTY(QString getTotal_Quiz_Taken READ getTotal_Quiz_Taken NOTIFY valueChanged)
 
 public:
 	ProgressReport(QObject *parent = 0);

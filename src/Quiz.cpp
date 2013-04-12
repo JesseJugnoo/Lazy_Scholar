@@ -15,7 +15,7 @@ using namespace bb::cascades;
 using namespace bb::data;
 using namespace std;
 Quiz::Quiz(QObject* parent):QObject(parent) {
-	sda = new SqlDataAccess(QDir::currentPath() + "/app/native/assets/lazy_scholar.sqlite");
+	//sda = new SqlDataAccess(QDir::currentPath() + "/app/native/assets/lazy_scholar.sqlite");
 	numQuestions = 0;
 	numCorrect = 0;
 	numWrong = 0;
@@ -29,6 +29,9 @@ Quiz::~Quiz() {
 
 void Quiz::loadTheQuestions() { //execute the sql statement and use it
 
+	if(sda == NULL){delete sda;}
+
+	sda = new SqlDataAccess(QDir::currentPath() + "/app/native/assets/lazy_scholar.sqlite");
 	//This is to get the queries for the guesses
 	QString sql = "Select Guess from Random ORDER BY RANDOM() LIMIT 3";
 	QVariant result = sda->execute(sql);
@@ -162,7 +165,7 @@ int Quiz::getIncorrectCounter(){
 }
 void Quiz::reset(){
 
-		numQuestions = 1;
+		numQuestions = 0;
 		numCorrect = 0;
 		numWrong = 0;
 		here1 = false;

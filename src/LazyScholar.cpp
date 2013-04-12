@@ -28,7 +28,7 @@ LazyScholar::LazyScholar(bb::cascades::Application *app) :
 
 	ProgressReport *Progress_Report = new ProgressReport();
 	Quiz *question = new Quiz(); //the object quiz, to control all of the quiz component stuff
-	question->loadTheQuestions();
+	//question->loadTheQuestions();
 	// Set the context property we want to use from inside the QML file. Functions exposed
 	// via Q_INVOKABLE will be found with the property and the name of the function.
 	qml->setContextProperty("learn", this);

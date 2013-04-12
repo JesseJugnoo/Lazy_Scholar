@@ -8,7 +8,7 @@ using namespace bb::data;
 
 ProgressReport::ProgressReport(QObject* parent):QObject(parent) {
 	sda = new SqlDataAccess(QDir::currentPath() + "/app/native/assets/lazy_scholar.sqlite");
-	Str_Total_Quiz_Taken = "Not initialized";
+	//Str_Total_Quiz_Taken = "Not initialized";
 }
 
 ProgressReport::~ProgressReport() {
@@ -16,13 +16,15 @@ ProgressReport::~ProgressReport() {
 }
 
 QString ProgressReport::loadTotalQuizTaken() {
-	QString sql = "Select COUNT(*) AS SUM from Quiz LIMIT 4";
+	//QString sql = "Select COUNT(*) AS SUM from Quiz LIMIT 4";
+
+	QString sql = "DELETE FROM \"main\".\"Quiz\"";
 
 	QVariant temp = sda->execute(sql);
 	if (sda->hasError()) {
 		qDebug() << sda->error() << endl;
 	}
-	Total_Quiz_Taken = temp.value<QVariantList>();
+	/*Total_Quiz_Taken = temp.value<QVariantList>();
 
 	QVariantMap map;
 
@@ -32,9 +34,12 @@ QString ProgressReport::loadTotalQuizTaken() {
 
 	ret = map["SUM"].toString();
 
-	qDebug("lol2.....");
+	qDebug("lol2.....");*/
+	 QSqlDatabase temp2;
+		 	temp2 = sda->connection();
+		 	temp2.close();
 
-	return ret;
+	return "haha";
 }
 
 QString ProgressReport::getTotal_Quiz_Taken(){
@@ -42,6 +47,6 @@ QString ProgressReport::getTotal_Quiz_Taken(){
 }
 void ProgressReport::updateTotal_Quiz_Taken(){
 	Str_Total_Quiz_Taken = loadTotalQuizTaken();
-	qDebug("lol.....");
+	//qDebug("lol.....");
 	emit valueChanged();
 }

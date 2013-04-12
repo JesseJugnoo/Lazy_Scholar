@@ -21,7 +21,6 @@ NavigationPane {
             Label {
                 id: "title"
                 text: "Chinese Edition 1"
-                textStyle.fontSizeValue: 150
                 bottomMargin: 100
                 horizontalAlignment: HorizontalAlignment.Center
             } //end label

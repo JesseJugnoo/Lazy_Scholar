@@ -67,6 +67,8 @@ Page {
                 }
                 else if (name == "Quiz") {
                     newPage = quizDefn.createObject();
+
+                    _quiz.loadTheQuestions();
                 }
                 else if(name == "Dictionary") {
                     newPage = vocabularyDefn.createObject();

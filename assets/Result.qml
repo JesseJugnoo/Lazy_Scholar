@@ -4,38 +4,40 @@ Page {
     
     Container {
         background: back.imagePaint
+        topPadding: 300
         Label{
             
-			            text:"Correct: " + _quiz.getCorrectCounter
-			            horizontalAlignment: HorizontalAlignment.Center
-			            verticalAlignment: VerticalAlignment.Center
-			            textStyle {
-			                base: SystemDefaults.TextStyles.BigText
-			                color: Color.Green
-			            }
-            }
-            Label{
+            text:"Correct: " + _quiz.getCorrectCounter
+            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Center
+            textStyle {
                 
-	                text: "Incorrect: " +_quiz.getIncorrectCounter
-	                horizontalAlignment: HorizontalAlignment.Center
-	                verticalAlignment: VerticalAlignment.Center
-	                textStyle {
-	                    base: SystemDefaults.TextStyles.BigText
-	                    color: Color.Red
-	                }
+                base: SystemDefaults.TextStyles.BigText
+                color: Color.create("#96B800");
             }
+        }
+        Label{
             
-            Label{
-                
-                text: "Try Again"
-                horizontalAlignment: HorizontalAlignment.Center
-                verticalAlignment: VerticalAlignment.Center
-                textStyle {
-                    base: SystemDefaults.TextStyles.BigText
-                    color: Color.Black
-                }
+            text: "Incorrect: " +_quiz.getIncorrectCounter
+            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Center
+            textStyle {
+                base: SystemDefaults.TextStyles.BigText
+                color: Color.create("#CC3F10");
             }
-           
+        }
+        
+        Label{
+            
+            text: "Play Again"
+            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Center
+            textStyle {
+                base: SystemDefaults.TextStyles.BigText
+                color: Color.create("#121212");
+            }
+        }
+    
     }
     paneProperties: NavigationPaneProperties {
         backButton: ActionItem {

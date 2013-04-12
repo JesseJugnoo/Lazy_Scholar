@@ -4,20 +4,17 @@ Page {
     id: quizPage
     Container{
         background: back.imagePaint
-        // layout: StackLayout{}
+        topPadding: 100
         Container{
             layout: AbsoluteLayout{}
             
+            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Center
             Label {
                 text: _quiz.getToBeAnswered
-                //text: "example"
-                layoutProperties: AbsoluteLayoutProperties {
-                    positionX: 328
-                    positionY: 50    
-                }
                 textStyle {
                     base: SystemDefaults.TextStyles.BigText
-                    color: Color.Black
+                    color: Color.create("#121212");
                 }
             }
         }
@@ -241,5 +238,16 @@ Page {
                 sourceUrl: "asset:///sounds/BUZZER.wav"
             }          
         ]
+         paneProperties: NavigationPaneProperties {
+                backButton: ActionItem {
+                    onTriggered: {
+                        //_quiz.loadTheQuestions();
+                        _quiz.reset();
+                        
+                        titleNav.pop();      
+                    }
+                }
+            }
+           
 }
 

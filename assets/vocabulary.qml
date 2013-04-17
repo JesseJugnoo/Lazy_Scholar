@@ -30,13 +30,13 @@ Page {
         attachedObjects: [
             GroupDataModel {
                 id: dataModel
-                //sortingKeys: ["ID","Word","Check"]
+                
             },
             
             DataSource {
                 id: dataSource
-                source: "test"
-                query: "select * from Words order by ID DESC"
+                source: "lazy_scholar.sqlite"
+                query: "select Word, Correct from Words "
                 onDataLoaded: {
                     dataModel.insertList(data);
                 }
